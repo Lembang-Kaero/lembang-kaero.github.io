@@ -1,0 +1,99 @@
+/* PALET WARNA IDENTITAS VISUAL */
+:root {
+    --maroon-color: #8B1E1E;
+    --dark-color: #1A1A1A;
+    --white-color: #FFFFFF;
+    --gold-color: #D4A017;
+    --green-color: #4B7B42;
+    --light-bg: #F8F9FA;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--white-color);
+    color: var(--dark-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* DARK MODE OVERRIDES */
+body.dark-theme {
+    background-color: #121212;
+    color: #E0E0E0;
+    --light-bg: #1E1E1E;
+}
+body.dark-theme .bg-white, body.dark-theme .card, body.dark-theme .identity-header {
+    background-color: #1E1E1E !important;
+    color: #E0E0E0 !important;
+}
+body.dark-theme .text-dark { color: #FFFFFF !important; }
+body.dark-theme .text-secondary { color: #B0B0B0 !important; }
+
+/* UTILITIES */
+.text-maroon { color: var(--maroon-color); }
+.text-gold { color: var(--gold-color); }
+.bg-maroon { background-color: var(--maroon-color); }
+.bg-gold { background-color: var(--gold-color); }
+.border-start-maroon { border-start: 4px solid var(--maroon-color); }
+
+/* HERO DESIGN */
+.hero-section {
+    min-height: 70vh;
+    background-attachment: scroll;
+}
+.text-shadow {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+/* BUTTONS */
+.btn-maroon {
+    background-color: var(--maroon-color);
+    color: white;
+    border: none;
+}
+.btn-maroon:hover {
+    background-color: #6D1616;
+    color: white;
+}
+.btn-outline-gold {
+    border: 2px solid var(--gold-color);
+    color: var(--gold-color);
+}
+.btn-outline-gold:hover {
+    background-color: var(--gold-color);
+    color: black;
+}
+
+/* BACK TO TOP & SHAPES */
+.btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    z-index: 99;
+    border-radius: 50%;
+    padding: 10px 14px;
+}
+.custom-shape-divider-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+.custom-shape-divider-bottom svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 60px;
+}
+.custom-shape-divider-bottom .shape-fill { fill: var(--white-color); }
+body.dark-theme .shape-fill { fill: #121212; }
+
+/* DECORATION */
+.divider-center {
+    width: 60px;
+    height: 4px;
+    background-color: var(--gold-color);
+    margin: 10px auto;
+}
