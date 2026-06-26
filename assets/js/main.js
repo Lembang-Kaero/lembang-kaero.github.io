@@ -1,40 +1,37 @@
-// Jalankan grafik setelah seluruh komponen halaman selesai dimuat
 document.addEventListener("DOMContentLoaded", function () {
-    
-    // ================= 1. GRAFIK DISTRIBUSI PENDAPATAN 2026 =================
-    const incomeCtx = document.getElementById('pageIncomeChart');
-    if (incomeCtx) {
-        // Total Pendapatan 2026 = 758.468.000
-        // PAD = (1.200.000 / 758.468.000) * 100% = ~0.16%
-        // Transfer = (757.268.000 / 758.468.000) * 100% = ~99.84%
-        
-        new Chart(incomeCtx, {
+    // FORMATTER RUPIAH UTILITY FUNCTION
+    const formatRupiah = (value) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            maximumFractionDigits: 0
+        }).format(value);
+    };
+
+    // =========================================================================
+    // [1] INITIALIZATION GRAFIK TAHUN ANGGARAN 2026 (Grafik Existing Anda)
+    // =========================================================================
+    const ctxIncome2026 = document.getElementById('pageIncomeChart')?.getContext('2d');
+    if (ctxIncome2026) {
+        new Chart(ctxIncome2026, {
             type: 'pie',
             data: {
-                labels: [
-                    'Pendapatan Asli Lembang (PAD)', 
-                    'Pendapatan Transfer'
-                ],
+                labels: ['Pendapatan Asli Lembang', 'Pendapatan Transfer'],
                 datasets: [{
-                    data: [0.16, 99.84], // Nilai dalam persen (%)
-                    backgroundColor: ['#800000', '#FFD700'], // Maroon & Gold
-                    borderWidth: 1
+                    data: [1200000, 757268000],
+                    backgroundColor: ['#fd7e14', '#0d6efd'],
+                    hoverOffset: 6
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            font: { family: 'Poppins', size: 11 }
-                        }
-                    },
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return ` ${context.label}: ${context.raw}%`;
+                                return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
                     }
@@ -43,17 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ================= 2. GRAFIK ALOKASI BELANJA PERBIDANG 2026 =================
-    const expenseCtx = document.getElementById('pageExpenseChart');
-    if (expenseCtx) {
-        // Total Belanja 2026 = 778.107.072
-        // Bid. Pemerintahan   = (475.435.360 / 778.107.072) * 100% = 61.10%
-        // Bid. Pembangunan    = (252.433.100 / 778.107.072) * 100% = 32.44%
-        // Bid. Pembinaan      = (15.300.000 / 778.107.072) * 100%  = 1.97%
-        // Bid. Pemberdayaan   = (10.570.000 / 778.107.072) * 100%  = 1.36%
-        // Bid. Penanggulangan = (24.368.612 / 778.107.072) * 100%  = 3.13%
-
-        new Chart(expenseCtx, {
+    const ctxExpense2026 = document.getElementById('pageExpenseChart')?.getContext('2d');
+    if (ctxExpense2026) {
+        new Chart(ctxExpense2026, {
             type: 'pie',
             data: {
                 labels: [
@@ -61,18 +50,52 @@ document.addEventListener("DOMContentLoaded", function () {
                     'Pelaksanaan Pembangunan',
                     'Pembinaan Kemasyarakatan',
                     'Pemberdayaan Masyarakat',
-                    'Penanggulangan Bencana & Mendesak'
+                    'Penanggulangan Bencana'
                 ],
                 datasets: [{
-                    data: [61.10, 32.44, 1.97, 1.36, 3.13], // Nilai dalam persen (%)
-                    backgroundColor: [
-                        '#DC3545', // Merah (Pemerintahan)
-                        '#28A745', // Hijau (Pembangunan)
-                        '#FFC107', // Kuning (Pembinaan)
-                        '#17A2B8', // Cyan (Pemberdayaan)
-                        '#6C757D'  // Abu-abu (Bencana)
-                    ],
-                    borderWidth: 1
+                    data: [475435360, 252433100, 15300000, 10570000, 24368612],
+                    backgroundColor: ['#dc3545', '#198754', '#ffc107', '#0dcaf0', '#6c757d'],
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ' ' + context.label + ': ' + formatRupiah(context.raw);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    // =========================================================================
+    // [2] INITIALIZATION GRAFIK LAPORAN REALISASI TAHUN 2025 (GRAFIK BARU)
+    // =========================================================================
+    
+    // A. Grafik Realisasi Pendapatan 2025
+    const ctxIncome2025 = document.getElementById('pageIncomeChart2025')?.getContext('2d');
+    if (ctxIncome2025) {
+        new Chart(ctxIncome2025, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Dana Lembang', 
+                    'Bagi Hasil Pajak & Retribusi', 
+                    'Alokasi Dana Lembang'
+                ],
+                datasets: [{
+                    // Mengambil data angka murni dari kolom Realisasi APBL 2025 di tabel Anda
+                    data: [724620800, 4728000, 561106000], 
+                    backgroundColor: ['#0d6efd', '#fd7e14', '#20c997'],
+                    hoverOffset: 6
                 }]
             },
             options: {
@@ -81,14 +104,52 @@ document.addEventListener("DOMContentLoaded", function () {
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: {
-                            font: { family: 'Poppins', size: 11 }
-                        }
+                        labels: { boxWidth: 12, font: { size: 11 } }
                     },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return ` ${context.label}: ${context.raw}%`;
+                                return ' ' + context.label + ': ' + formatRupiah(context.raw);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // B. Grafik Realisasi Belanja Perbidang 2025
+    const ctxExpense2025 = document.getElementById('pageExpenseChart2025')?.getContext('2d');
+    if (ctxExpense2025) {
+        new Chart(ctxExpense2025, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Penyelenggaraan Pemerintahan',
+                    'Pelaksanaan Pembangunan',
+                    'Pembinaan Kemasyarakatan',
+                    'Pemberdayaan Masyarakat',
+                    'Penanggulangan Bencana'
+                ],
+                datasets: [{
+                    // Mengambil data murni dari kolom Realisasi Belanja Perbidang 2025 di tabel Anda
+                    data: [552156800, 531502996, 38400000, 1650000, 144000000],
+                    backgroundColor: ['#dc3545', '#198754', '#ffc107', '#0dcaf0', '#6c757d'],
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, font: { size: 11 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
                     }
