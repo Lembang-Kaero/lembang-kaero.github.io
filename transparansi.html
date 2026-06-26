@@ -18,40 +18,74 @@
         .text-maroon { color: #800000; }
         .bg-gold { background-color: #FFD700; }
         .text-gold { color: #FFD700; }
+        
+        /* Tambahan style penyeimbang agar navigasi bar serupa dengan gambar */
+        .nav-link {
+            transition: color 0.2s ease-in-out;
+        }
+        .nav-link:hover {
+            color: #FFD700 !important;
+        }
     </style>
 </head>
 <body>
 
-    <!-- TOP HEADER (Identitas Pemerintahan) -->
-    <header class="bg-white py-3 shadow-sm border-bottom identity-header">
-        <div class="container d-flex justify-content-between align-items-center">
-            <img src="assets/images/LOGO TATOR3.png" alt="Logo Kabupaten Tana Toraja" class="header-logo" height="80">
-            <div class="text-center mx-3 header-title-area">
-                <h1 class="h4 fw-bold mb-0" style="color: #800000;">WEBSITE RESMI PEMERINTAH LEMBANG KAERO</h1>
-                <p class="mb-0 text-muted small text-uppercase fw-semibold">Kecamatan Sangalla' • Kabupaten Tana Toraja • Provinsi Sulawesi Selatan</p>
-                <span class="badge mt-1 text-dark italic-tagline" style="background-color: #FFD700;">"Transparan • Informatif • Melayani"</span>
+    <!-- ================= FIXED HEADER (Sesuai image_d6e5fb.png) ================= -->
+    <header class="bg-white py-3 border-bottom identity-header">
+        <div class="container-fluid px-md-5">
+            <div class="row align-items-center">
+                
+                <!-- SISI KIRI: KEDUA LOGO BERTAUTAN -->
+                <div class="col-lg-3 col-md-4 d-flex gap-3 justify-content-start align-items-center mb-3 mb-md-0">
+                    <img src="assets/images/LOGO TATOR3.png" alt="Logo Kabupaten Tana Toraja" style="height: 75px; width: auto; object-fit: contain;">
+                    <img src="assets/images/kemendesa-logo-8698B6D63A-seeklogo.com.png" alt="Logo P3MD Kemendesa" style="height: 75px; width: auto; object-fit: contain;">
+                </div>
+
+                <!-- SISI TENGAH: TEKS IDENTITAS PEMERINTAHAN -->
+                <div class="col-lg-6 col-md-5 text-center mb-3 mb-md-0">
+                    <h1 class="fw-bold mb-1" style="color: #800000; font-size: 1.55rem; letter-spacing: 0.5px; line-height: 1.3;">
+                        WEBSITE RESMI PEMERINTAH<br>LEMBANG KAERO
+                    </h1>
+                    <p class="text-uppercase fw-semibold text-muted mb-2 small" style="letter-spacing: 0.3px; font-size: 0.8rem;">
+                        Kecamatan Sangalla' • Kabupaten Tana Toraja • Provinsi Sulawesi Selatan
+                    </p>
+                    <div class="d-inline-block bg-gold text-dark fw-bold px-3 py-1 rounded-pill small" style="font-size: 0.8rem;">
+                        "Transparan • Informatif • Melayani"
+                    </div>
+                </div>
+
+                <!-- SISI KANAN: PROFIL FOTO KEPALA LEMBANG -->
+                <div class="col-lg-3 col-md-3 d-flex align-items-center justify-content-md-end justify-content-center gap-3">
+                    <div class="text-md-end text-center">
+                        <h5 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">Nura Massora Salusu</h5>
+                        <small class="text-muted text-uppercase fw-bold d-block" style="font-size: 0.7rem; letter-spacing: 0.8px;">Kepala Lembang</small>
+                    </div>
+                    <!-- Pastikan file foto kepala lembang diletakkan di folder images Anda -->
+                    <img src="assets/images/kepala-lembang.png" alt="Foto Kepala Lembang" class="rounded border shadow-sm" style="height: 85px; width: 70px; object-fit: cover;">
+                </div>
+
             </div>
-            <img src="assets/images/kemendesa-logo-8698B6D63A-seeklogo.com.png" alt="Logo P3MD Kemendesa" class="header-logo" height="80">
         </div>
     </header>
 
-    <!-- STICKY NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+    <!-- ================= STICKY NAVBAR WITH ACTIVE ACCENT ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow py-2">
         <div class="container">
             <a class="navbar-brand d-lg-none text-gold fw-bold" href="#">Lembang Kaero</a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-between text-uppercase fw-semibold small">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pemerintahan.html">Pemerintahan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="berita.html">Berita</a></li>
-                    <li class="nav-item"><a class="nav-link" href="layanan.html">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="transparansi.html">Transparansi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="kontak.html">Kontak</a></li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-between text-uppercase fw-bold small">
+                    <li class="nav-item"><a class="nav-link text-white-50" href="index.html">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="profil.html">Profil</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="pemerintahan.html">Pemerintahan</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="berita.html">Berita</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="layanan.html">Layanan</a></li>
+                    <!-- Menu Transparansi diubah menjadi kuning aktif (text-gold / text-warning) sesuai image_d6e59f.png -->
+                    <li class="nav-item"><a class="nav-link text-gold" href="transparansi.html">Transparansi</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="galeri.html">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="kontak.html">Kontak</a></li>
                 </ul>
             </div>
         </div>
