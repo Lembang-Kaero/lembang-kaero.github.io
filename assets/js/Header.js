@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const headerElement = document.querySelector('header');
     
     if (headerElement) {
-        // Trik parameter waktu acak untuk memaksa GitHub Pages memuat data menu paling baru
+        // DISESUAIKAN: Menggunakan huruf kecil 'components/header.html' sesuai folder asli GitHub Anda
         const antiCacheToken = new Date().getTime();
         const headerUrl = 'assets/components/header.html?v=' + antiCacheToken;
 
@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 // MENGATUR MENU AKTIF WARNA KUNING SECARA OTOMATIS
                 try {
-                    // Mengambil nama file saja dari URL (misal: "berita.html")
                     const currentPath = window.location.pathname.toLowerCase();
                     const currentFile = currentPath.split('/').pop();
                     
@@ -26,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     navLinks.forEach(link => {
                         const linkHref = link.getAttribute('href').toLowerCase();
                         
-                        // Validasi kecocokan halaman aktif secara mendalam
                         const isAbsoluteMatch = currentFile === linkHref;
                         const isFolderEndMatch = (currentPath.endsWith('/') || currentFile === '') && linkHref === 'index.html';
                         const isPartialMatch = currentFile.includes(linkHref) && linkHref !== '';
