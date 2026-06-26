@@ -55,98 +55,184 @@
     <main class="py-5 bg-light">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="fw-bold text-dark text-uppercase">Laporan Realisasi APBL T.A 2026</h2>
+                <h2 class="fw-bold text-dark text-uppercase">Laporan Realisasi & Anggaran APBL</h2>
                 <div class="mx-auto my-3 border-bottom border-danger border-3" style="width: 80px;"></div>
-                <p class="text-muted">Wujud Transparansi Anggaran Sesuai Regulasi P3MD Kemendesa</p>
+                <p class="text-muted">Wujud Keterbukaan Informasi Publik Pemerintah Lembang Kaero</p>
             </div>
 
-            <!-- SECTION GRAFIK -->
-            <div class="row g-4 mb-5">
-                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card border-0 shadow-sm p-4 bg-white">
-                        <h4 class="fw-bold text-center mb-4" style="color: #800000;">Grafik Distribusi Pendapatan Lembang</h4>
-                        <div style="position: relative; height: 300px;">
-                            <canvas id="pageIncomeChart"></canvas>
-                        </div>
+            <!-- ================= TABEL T.A 2026 (BARU) ================= -->
+            <div class="card border-0 shadow-sm p-4 bg-white mb-5" data-aos="fade-up">
+                <div class="border-bottom pb-3 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-calendar-check-fill text-maroon fs-4 me-3"></i>
+                        <h4 class="fw-bold text-dark text-uppercase mb-0">Rencana Anggaran APBL Tahun 2026</h4>
                     </div>
-                </div>
-                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="card border-0 shadow-sm p-4 bg-white">
-                        <h4 class="fw-bold text-center text-success mb-4">Grafik Alokasi Pembiayaan Belanja</h4>
-                        <div style="position: relative; height: 300px;">
-                            <canvas id="pageExpenseChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION TABEL DETAIL PEMBIAYAHAN (DIPERBARUI) -->
-            <div class="card border-0 shadow-sm p-4 bg-white" data-aos="fade-up" data-aos-delay="100">
-                <div class="border-bottom pb-3 mb-4 d-flex align-items-center">
-                    <i class="bi bi-grid-3x3-gap-fill text-danger fs-4 me-3"></i>
-                    <h4 class="fw-bold text-dark text-uppercase mb-0">Tabel Rincian Pembiayaan Belanja Lembang T.A 2026</h4>
+                    <span class="badge bg-gold text-dark px-3 py-2 fw-bold text-uppercase">Tahun Anggaran Berjalan</span>
                 </div>
                 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover align-middle mb-0">
+                    <table class="table table-striped table-bordered align-middle mb-0">
+                        <!-- Sub-Header PENDAPATAN -->
                         <thead class="table-dark text-uppercase small text-center">
                             <tr>
-                                <th style="width: 6%;">No.</th>
-                                <th>Bidang Pembiayaan Lembang</th>
-                                <th style="width: 22%;">Anggaran (Rp.)</th>
-                                <th style="width: 15%;">Persentase (%)</th>
-                                <th style="width: 20%;">Keterangan</th>
+                                <th colspan="2" class="text-start py-2 px-3 text-gold"><i class="bi bi-arrow-down-left-square-fill me-2"></i>I. PENDAPATAN (2026)</th>
+                                <th style="width: 30%;">Anggaran (Rp.)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="small">
+                            <tr>
+                                <td class="text-center fw-bold" style="width: 5%;">1</td>
+                                <td>Pendapatan Asli Lembang</td>
+                                <td class="text-end pe-4 fw-semibold">1.200.000,00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">2</td>
+                                <td>Pendapatan Transfer</td>
+                                <td class="text-end pe-4 fw-semibold">757.268.000,00</td>
+                            </tr>
+                            <tr class="table-warning fw-bold text-uppercase text-dark">
+                                <td colspan="2" class="text-end pe-4">Jumlah Pendapatan</td>
+                                <td class="text-end pe-4">758.468.000,00</td>
+                            </tr>
+                        </tbody>
+
+                        <!-- Sub-Header BELANJA -->
+                        <thead class="table-dark text-uppercase small text-center">
+                            <tr>
+                                <th colspan="2" class="text-start py-2 px-3 text-success"><i class="bi bi-arrow-up-right-square-fill me-2"></i>II. RENCANA BELANJA PERBIDANG (2026)</th>
+                                <th>Anggaran (Rp.)</th>
                             </tr>
                         </thead>
                         <tbody class="small">
                             <tr>
                                 <td class="text-center fw-bold">1</td>
-                                <td>Bidang Penyelenggaraan Pemerintahan</td>
-                                <td class="text-end pe-3 fw-semibold">300.000.000</td>
-                                <td class="text-center fw-bold text-danger">30%</td>
-                                <td class="text-center"><span class="badge bg-success w-75 py-2">Terealisasi</span></td>
+                                <td>BIDANG PENYELENGGARAAN PEMERINTAHAN</td>
+                                <td class="text-end pe-4">475.435.360,00</td>
                             </tr>
                             <tr>
                                 <td class="text-center fw-bold">2</td>
-                                <td>Bidang Pelaksanaan Pembangunan</td>
-                                <td class="text-end pe-3 fw-semibold">400.000.000</td>
-                                <td class="text-center fw-bold text-success">40%</td>
-                                <td class="text-center"><span class="badge bg-success w-75 py-2">Terealisasi</span></td>
+                                <td>BIDANG PELAKSANAAN PEMBANGUNAN</td>
+                                <td class="text-end pe-4">252.433.100,00</td>
                             </tr>
                             <tr>
                                 <td class="text-center fw-bold">3</td>
-                                <td>Bidang Pembinaan Masyarakat</td>
-                                <td class="text-end pe-3 fw-semibold">120.000.000</td>
-                                <td class="text-center fw-bold text-warning">12%</td>
-                                <td class="text-center"><span class="badge bg-success w-75 py-2">Terealisasi</span></td>
+                                <td>BIDANG PEMBINAAN KEMASYARAKATAN</td>
+                                <td class="text-end pe-4">15.300.000,00</td>
                             </tr>
                             <tr>
                                 <td class="text-center fw-bold">4</td>
-                                <td>Bidang Pemberdayaan Masyarakat</td>
-                                <td class="text-end pe-3 fw-semibold">100.000.000</td>
-                                <td class="text-center fw-bold text-info">10%</td>
-                                <td class="text-center"><span class="badge bg-warning text-dark w-75 py-2">Tahap Berjalan</span></td>
+                                <td>BIDANG PEMBERDAYAAN MASYARAKAT</td>
+                                <td class="text-end pe-4">10.570.000,00</td>
                             </tr>
                             <tr>
                                 <td class="text-center fw-bold">5</td>
-                                <td>Bidang Penanggulangan Bencana, darurat, dan mendesak Lembang</td>
-                                <td class="text-end pe-3 fw-semibold">80.000.000</td>
-                                <td class="text-center fw-bold text-secondary">8%</td>
-                                <td class="text-center"><span class="badge bg-success w-75 py-2">Terealisasi</span></td>
+                                <td>BIDANG PENANGGULANGAN BENCANA</td>
+                                <td class="text-end pe-4">24.368.612,00</td>
+                            </tr>
+                            <tr class="table-success fw-bold text-uppercase text-dark">
+                                <td colspan="2" class="text-end pe-4">Jumlah Belanja</td>
+                                <td class="text-end pe-4">778.107.072,00</td>
                             </tr>
                         </tbody>
-                       <tfoot class="table-light fw-bold text-center text-uppercase small">
-    <tr>
-        <!-- Menggabungkan 2 kolom (No & Bidang) agar teks rata kanan sebelum angka -->
-        <td colspan="2" class="text-end pe-4 py-3">Total Pembiayaan Belanja</td>
-        <!-- Pas di bawah kolom Anggaran (Rp.) -->
-        <td class="text-end pe-3 text-dark fw-bold">1.000.000.000</td>
-        <!-- Pas di bawah kolom Persentase (%) -->
-        <td class="bg-dark text-white fw-bold">100%</td>
-        <!-- Pas di bawah kolom Keterangan -->
-        <td class="text-success text-lowercase italic-tagline"><i class="bi bi-check-all me-1"></i>sesuai target regulasi</td>
-    </tr>
-</tfoot>
+                    </table>
+                </div>
+            </div>
+
+
+            <!-- ================= TABEL T.A 2025 (SATU DATA) ================= -->
+            <div class="card border-0 shadow-sm p-4 bg-white" data-aos="fade-up">
+                <div class="border-bottom pb-3 mb-4 d-flex align-items-center">
+                    <i class="bi bi-archive-fill text-secondary fs-4 me-3"></i>
+                    <h4 class="fw-bold text-dark text-uppercase mb-0">Laporan Realisasi APBL Tahun 2025</h4>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered align-middle mb-0">
+                        <!-- Sub-Header PENDAPATAN -->
+                        <thead class="table-dark text-uppercase small text-center">
+                            <tr>
+                                <th colspan="2" class="text-start py-2 px-3 text-gold"><i class="bi bi-arrow-down-left-square-fill me-2"></i>I. PENDAPATAN (2025)</th>
+                                <th style="width: 25%;">Rencana (Rp.)</th>
+                                <th style="width: 25%;">Realisasi (Rp.)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="small">
+                            <tr>
+                                <td class="text-center fw-bold" style="width: 5%;">1</td>
+                                <td>Pendapatan Asli Lembang</td>
+                                <td class="text-end pe-4 text-muted">0,00</td>
+                                <td class="text-end pe-4 text-muted">-</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">2</td>
+                                <td>Dana Lembang</td>
+                                <td class="text-end pe-4">980.399.000,00</td>
+                                <td class="text-end pe-4 fw-semibold text-success">724.620.800,00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">3</td>
+                                <td>Bagi Hasil Pajak dan Retribusi</td>
+                                <td class="text-end pe-4">4.728.000,00</td>
+                                <td class="text-end pe-4 fw-semibold text-success">4.728.000,00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">4</td>
+                                <td>Alokasi Dana Lembang</td>
+                                <td class="text-end pe-4">561.106.000,00</td>
+                                <td class="text-end pe-4 fw-semibold text-success">561.106.000,00</td>
+                            </tr>
+                            <tr class="table-warning fw-bold text-uppercase text-dark">
+                                <td colspan="2" class="text-end pe-4">Total Pendapatan</td>
+                                <td class="text-end pe-4">1.546.233.000,00</td>
+                                <td class="text-end pe-4">1.290.454.800,00</td>
+                            </tr>
+                        </tbody>
+
+                        <!-- Sub-Header BELANJA -->
+                        <thead class="table-dark text-uppercase small text-center">
+                            <tr>
+                                <th colspan="2" class="text-start py-2 px-3 text-success"><i class="bi bi-arrow-up-right-square-fill me-2"></i>II. REALISASI BELANJA PERBIDANG (2025)</th>
+                                <th>Anggaran (Rp.)</th>
+                                <th>Realisasi (Rp.)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="small">
+                            <tr>
+                                <td class="text-center fw-bold">1</td>
+                                <td>BIDANG PENYELENGGARAAN PEMERINTAHAN</td>
+                                <td class="text-end pe-4">560.556.800,00</td>
+                                <td class="text-end pe-4 fw-semibold text-success">552.156.800,00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">2</td>
+                                <td>BIDANG PELAKSANAAN PEMBANGUNAN</td>
+                                <td class="text-end pe-4">617.202.000,00</td>
+                                <td class="text-end pe-4 fw-semibold text-success">531.502.996,00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">3</td>
+                                <td>BIDANG PEMBINAAN KEMASYARAKATAN</td>
+                                <td class="text-end pe-4">38.400.000,00</td>
+                                <td class="text-end pe-4 fw-semibold text-success">38.400.000,00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">4</td>
+                                <td>BIDANG PEMBERDAYAAN MASYARAKAT</td>
+                                <td class="text-end pe-4">11.375.000,00</td>
+                                <td class="text-end pe-4 fw-semibold text-success">1.650.000,00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold">5</td>
+                                <td>BIDANG PENANGGULANGAN BENCANA</td>
+                                <td class="text-end pe-4">147.494.093,90</td>
+                                <td class="text-end pe-4 fw-semibold text-success">144.000.000,00</td>
+                            </tr>
+                            <tr class="table-success fw-bold text-uppercase text-dark">
+                                <td colspan="2" class="text-end pe-4">Jumlah Belanja</td>
+                                <td class="text-end pe-4">1.375.027.893,90</td>
+                                <td class="text-end pe-4">1.267.709.796,00</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -187,7 +273,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="assets/js/main.js"></script>
     
     <!-- INISIALISASI AOS ANIMASI -->
     <script>
