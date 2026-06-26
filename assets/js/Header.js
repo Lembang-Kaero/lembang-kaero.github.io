@@ -17,14 +17,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 // MENGATUR MENU AKTIF WARNA KUNING SECARA OTOMATIS
                 try {
+                    // Mengambil nama file saja dari URL (misal: "berita.html")
                     const currentPath = window.location.pathname.toLowerCase();
+                    const currentFile = currentPath.split('/').pop();
+                    
                     const navLinks = headerElement.querySelectorAll('.navbar-nav .nav-link');
                     
                     navLinks.forEach(link => {
                         const linkHref = link.getAttribute('href').toLowerCase();
                         
-                        // Jika URL mengandung nama file menu, tandai sebagai menu aktif
-                        if (currentPath.includes(linkHref) || (currentPath.endsWith('/') && linkHref === 'index.html')) {
+                        // Validasi kecocokan halaman aktif secara mendalam
+                        const isAbsoluteMatch = currentFile === linkHref;
+                        const isFolderEndMatch = (currentPath.endsWith('/') || currentFile === '') && linkHref === 'index.html';
+                        const isPartialMatch = currentFile.includes(linkHref) && linkHref !== '';
+
+                        if (isAbsoluteMatch || isFolderEndMatch || isPartialMatch) {
                             link.classList.add('active', 'text-warning');
                         } else {
                             link.classList.remove('active', 'text-warning');
