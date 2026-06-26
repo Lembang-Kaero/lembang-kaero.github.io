@@ -16,8 +16,40 @@
 </head>
 <body>
 
-    <!-- Wadah Header & Navigasi Otomatis -->
-    <div id="header-lembang"></div>
+    <!-- TOP HEADER (Identitas Pemerintahan) -->
+    <header class="bg-white py-3 shadow-sm border-bottom identity-header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="assets/images/LOGO TATOR3.png" alt="Logo Kabupaten Tana Toraja" class="header-logo" height="80">
+            <div class="text-center mx-3 header-title-area">
+                <h1 class="h4 fw-bold mb-0" style="color: #800000;">WEBSITE RESMI PEMERINTAH LEMBANG KAERO</h1>
+                <p class="mb-0 text-muted small text-uppercase fw-semibold">Kecamatan Sangalla' • Kabupaten Tana Toraja • Provinsi Sulawesi Selatan</p>
+                <span class="badge mt-1 text-dark italic-tagline" style="background-color: #FFD700;">"Transparan • Informatif • Melayani"</span>
+            </div>
+            <img src="assets/images/LOGO P3MD_.png" alt="Logo P3MD Kemendesa" class="header-logo" height="80">
+        </div>
+    </header>
+
+    <!-- STICKY NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+        <div class="container">
+            <a class="navbar-brand d-lg-none text-gold fw-bold" href="#">Lembang Kaero</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-between text-uppercase fw-semibold small">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pemerintahan.html">Pemerintahan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="berita.html">Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="layanan.html">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="transparansi.html">Transparansi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontak.html">Kontak</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <!-- Teks Berjalan Pengumuman -->
     <div class="bg-gold text-dark py-2 overflow-hidden position-relative border-bottom border-dark">
@@ -104,8 +136,34 @@
         </div>
     </section>
 
-    <!-- Wadah Footer Otomatis -->
-    <div id="footer-lembang"></div>
+    <!-- FOOTER -->
+    <footer class="bg-dark text-light pt-5 pb-3 border-top border-danger border-4">
+        <div class="container">
+            <div class="row g-4 mb-4 text-center text-md-start">
+                <div class="col-md-5">
+                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-md-start mb-3 gap-3">
+                        <img src="assets/images/LOGO TATOR3.png" alt="Logo Tator" height="60">
+                        <img src="assets/images/LOGO P3MD_.png" alt="Logo P3MD" height="60">
+                    </div>
+                    <h5 class="fw-bold text-uppercase mb-2" style="color: #FFD700;">Pemerintah Lembang Kaero</h5>
+                    <p class="text-muted small lh-relaxed">Situs web pelayanan masyarakat terpadu dan media informasi keterbukaan publik resmi Lembang Kaero.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-bold text-white text-uppercase mb-3 border-bottom border-secondary pb-2">Jam Pelayanan</h5>
+                    <p class="text-muted small mb-1"><span class="text-white fw-semibold">Senin – Jumat:</span><br>08.00 – 16.00 WITA</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold text-white text-uppercase mb-3 border-bottom border-secondary pb-2">Kontak Kami</h5>
+                    <ul class="list-unstyled text-muted small lh-lg">
+                        <li><i class="bi bi-geo-alt-fill me-2" style="color: #FFD700;"></i>Lembang Kaero, Kec. Sangalla', Kab. Tana Toraja</li>
+                        <li><i class="bi bi-telephone-fill me-2" style="color: #FFD700;"></i>+62 813-1878-5080</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <p class="text-center mb-0 small text-muted">&copy; 2026 Pemerintah Lembang Kaero. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <!-- Tombol Kembali Ke Atas -->
     <button type="button" class="btn btn-maroon btn-back-to-top shadow" id="btnBackToTop" aria-label="Kembali ke atas">
