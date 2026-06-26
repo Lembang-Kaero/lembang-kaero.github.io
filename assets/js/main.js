@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ================= 1. GRAFIK DISTRIBUSI PENDAPATAN 2026 =================
     const incomeCtx = document.getElementById('pageIncomeChart');
     if (incomeCtx) {
-        // Total Pendapatan = 758.468.000
+        // Total Pendapatan 2026 = 758.468.000
         // PAD = (1.200.000 / 758.468.000) * 100% = ~0.16%
         // Transfer = (757.268.000 / 758.468.000) * 100% = ~99.84%
         
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            font: { family: 'Poppins', size: 12 }
+                            font: { family: 'Poppins', size: 11 }
                         }
                     },
                     tooltip: {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ================= 2. GRAFIK ALOKASI BELANJA PERBIDANG 2026 =================
     const expenseCtx = document.getElementById('pageExpenseChart');
     if (expenseCtx) {
-        // Total Belanja = 778.107.072
+        // Total Belanja 2026 = 778.107.072
         // Bid. Pemerintahan   = (475.435.360 / 778.107.072) * 100% = 61.10%
         // Bid. Pembangunan    = (252.433.100 / 778.107.072) * 100% = 32.44%
         // Bid. Pembinaan      = (15.300.000 / 778.107.072) * 100%  = 1.97%
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            font: { family: 'Poppins', size: 12 }
+                            font: { family: 'Poppins', size: 11 }
                         }
                     },
                     tooltip: {
