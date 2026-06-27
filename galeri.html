@@ -75,12 +75,28 @@ Memuat galeri...
 const SHEET_ID =
 "1PHumYBscib8egsUvJV1aRB9ReYlDe5vY6t4bLe0ntZY";
 
-/*
-Ganti Sheet1 bila nama tab berbeda
-*/
+const SHEET_NAME =
+"Form Responses 1";
 
 const url =
-`https://opensheet.elk.sh/${SHEET_ID}/Form Responses 1`;
+`https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(SHEET_NAME)}`;
+
+function convertDriveUrl(url){
+
+if(!url) return "";
+
+const match =
+url.match(/\/d\/(.*?)\//);
+
+if(match){
+
+return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1600`;
+
+}
+
+return url;
+
+}
 
 fetch(url)
 
@@ -88,42 +104,54 @@ fetch(url)
 
 .then(data=>{
 
-let html="";
+const gallery =
+document.getElementById("gallery");
 
-data.reverse().forEach(item=>{
+if(!data.length){
 
-const foto =
-item["Foto"]
-||
+gallery.innerHTML=
+"<p class='text-center'>Belum ada foto.</p>";
+
+return;
+
+}
+
+gallery.innerHTML =
+data
+.reverse()
+.map(item=>{
+
+const image =
+convertDriveUrl(
 item["Upload Foto"]
-||
-"";
+);
 
-const deskripsi =
+const desc =
 item["Deskripsi Foto"]
-||
-item["Deskripsi"]
 ||
 "Tanpa deskripsi";
 
-if(foto){
-
-html += `
+return `
 
 <div class="col-md-4">
 
 <div class="card shadow-sm h-100">
 
 <img
-src="${foto}"
+src="${image}"
 class="card-img-top"
-style="height:260px;object-fit:cover">
+alt="${desc}"
+loading="lazy"
+style="
+height:280px;
+object-fit:cover;
+">
 
 <div class="card-body">
 
 <p class="mb-0">
 
-${deskripsi}
+${desc}
 
 </p>
 
@@ -135,36 +163,36 @@ ${deskripsi}
 
 `;
 
-}
-
-});
-
-document
-.getElementById(
-"gallery"
-)
-
-.innerHTML =
-html ||
-
-"<p class='text-center'>Belum ada galeri.</p>";
+})
+.join("");
 
 })
 
 .catch(()=>{
 
 document
-.getElementById(
-"gallery"
-)
-
+.getElementById("gallery")
 .innerHTML=
 
-"<p class='text-center text-danger'>Galeri gagal dimuat.</p>";
+`
+<div class="text-center">
+
+<h5>
+Galeri gagal dimuat
+</h5>
+
+<p>
+Periksa izin Google Sheet.
+</p>
+
+</div>
+`;
 
 });
 
 </script>
+
+
 
 </body>
 </html>
