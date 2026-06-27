@@ -367,66 +367,72 @@ color:#CFCFCF;
 }
 
 
+```css
 /* ==========================================
-   FOOTER FIX
+   FOOTER
 ========================================== */
-footer img,
-.footer img{
-max-width:100%;
-
-height:auto;
-
-}
-
-/* Logo footer */
-.footer-logo{
-
-max-height:180px;
-width:auto;
-object-fit:contain;
-
-}
-
-/* Kolom footer */
-footer .row{
-align-items:flex-start;
-
-}
-
-/* Teks footer */
 footer{
+background:#161C24;
 overflow:hidden;
 }
 
-footer h5,
-footer h6{
-font-size:20px;
+/* logo footer saja */
+footer .footer-logo{
+
+height:60px;
+width:auto;
+object-fit:contain;
 }
 
+/* heading footer */
+footer h5{
+font-size:16px;
+line-height:1.5;
+}
+
+/* isi footer */
 footer p,
 footer li,
-footer small{
+footer span{
 
-font-size:15px;
+font-size:14px;
 line-height:1.8;
+}
+
+/* list kontak */
+footer ul{
+
+padding-left:0;
+margin-bottom:0;
+}
+
+/* icon */
+footer i{
+
+min-width:18px;
 
 }
 
-/* Mobile */
+/* copyright */
+footer .small{
+font-size:13px;
+}
+
+/* mobile */
 @media(max-width:768px){
-
-.footer-logo{
-max-height:130px;
-
-}
 
 footer{
 text-align:center;
 }
-
 footer .row{
-gap:30px;
+row-gap:30px;
+}
+
+footer li{
+justify-content:center;
 
 }
 
 }
+
+
