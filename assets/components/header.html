@@ -1,82 +1,103 @@
-<div class="container-fluid px-md-5 py-3">
-    <div class="row align-items-center g-3">
-        
-        <!-- 1. SISI KIRI: LOGO -->
-        <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start align-items-center gap-3">
-            <img src="assets/images/LOGO TATOR3.png" alt="Logo Kabupaten Tana Toraja" class="header-logo" height="85">
-            <img src="assets/images/LOGO P3MD_.png" alt="Logo P3MD Kemendesa" class="header-logo" height="85">
+```html
+<header class="container-fluid px-md-5 py-3">
+
+<div class="row align-items-center">
+
+    <!-- LOGO -->
+    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start align-items-center gap-3 mb-3 mb-md-0">
+
+        <img src="assets/images/LOGO TATOR3.png"
+             alt="Logo Pemerintah Kabupaten Tana Toraja"
+             class="header-logo">
+
+        <img src="assets/images/LOGO P3MD_.png"
+             alt="Logo P3MD Kemendesa"
+             class="header-logo">
+
+    </div>
+
+
+    <!-- JUDUL -->
+    <div class="col-12 col-md-6 text-center">
+
+        <div class="header-top-title">
+            WEBSITE RESMI PEMERINTAH
         </div>
 
-        <!-- 2. SISI TENGAH: TEKS UTAMA -->
-<div class="col-12 col-md-4 text-center header-title-area">
+        <h1 class="header-main-title">
+            LEMBANG KAERO
+        </h1>
 
-    <!-- Baris 1 -->
-    <h1 class="fw-bold mb-0"
-        style="color:#800000; font-size:28px; line-height:1;">
-        WEBSITE RESMI PEMERINTAH
-    </h1>
+        <p class="header-location">
+            Kecamatan Sangalla' • Kabupaten Tana Toraja • Provinsi Sulawesi Selatan
+        </p>
 
-    <!-- Baris 2 -->
-    <h2 class="fw-bold mb-1"
-        style="color:#800000; font-size:58px; line-height:0.95;">
-        LEMBANG KAERO
-    </h2>
+        <span class="header-tagline">
+            Transparan • Informatif • Melayani
+        </span>
 
-    <!-- Subjudul 1 baris -->
-    <p class="mb-0 text-muted text-uppercase fw-semibold"
-       style="font-size:18px; white-space:nowrap;">
-        Kecamatan Sangalla' • Kabupaten Tana Toraja • Provinsi Sulawesi Selatan
-    </p>
-
-    <!-- Tagline -->
-    <span class="badge mt-2 text-dark italic-tagline"
-          style="background-color:#FFD700; font-size:15px;">
-        "Transparan • Informatif • Melayani"
-    </span>
-
-</div>
+    </div>
 
 
-<!-- 3. FOTO KEPALA LEMBANG -->
-<div class="col-12 col-md-4 d-flex flex-column align-items-center align-items-md-end justify-content-end ms-auto text-center text-md-end">
+    <!-- FOTO -->
+    <div class="col-12 col-md-3 text-center text-md-end mt-3 mt-md-0">
 
-    <img src="assets/images/Kepala Lembang .png"
-         alt="Foto Kepala Lembang"
-         class="rounded border shadow-sm mb-2"
-         style="height:132px; width:108px; object-fit:cover;">
+        <img
+            src="assets/images/Kepala Lembang .png"
+            alt="Foto Kepala Lembang Nura Massora Salusu"
+            class="leader-photo">
 
-    <div>
-        <h5 class="fw-bold mb-0 text-dark"
-            style="font-size:0.9rem; white-space:nowrap;">
+        <div class="leader-name">
             Nura Massora Salusu
-        </h5>
-
-        <small class="text-muted text-uppercase fw-bold d-block"
-               style="font-size:0.7rem;">
-            Kepala Lembang
-        </small>
-    </div>
-
-</div>
-    </div>
-</div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow mb-0">
-    <div class="container-fluid px-md-5">
-        <a class="navbar-brand d-lg-none text-gold fw-bold" href="#">Lembang Kaero</a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-between text-uppercase fw-semibold small">
-                <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
-                <li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
-                <li class="nav-item"><a class="nav-link" href="pemerintahan.html">Pemerintahan</a></li>
-                <li class="nav-item"><a class="nav-link" href="berita.html">Berita</a></li>
-                <li class="nav-item"><a class="nav-link" href="layanan.html">Layanan</a></li>
-                <li class="nav-item"><a class="nav-link" href="transparansi.html">Transparansi</a></li>
-                <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
-                <li class="nav-item"><a class="nav-link" href="kontak.html">Kontak</a></li>
-            </ul>
         </div>
+
+        <div class="leader-position">
+            Kepala Lembang
+        </div>
+
     </div>
+
+</div>
+
+</header>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+
+<div class="container-fluid px-md-5">
+
+<a class="navbar-brand d-lg-none fw-bold" href="#">
+Lembang Kaero
+</a>
+
+<button
+class="navbar-toggler border-0"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#mainNavbar">
+
+<span class="navbar-toggler-icon"></span>
+
+</button>
+
+<div class="collapse navbar-collapse" id="mainNavbar">
+
+<ul class="navbar-nav w-100 justify-content-between text-uppercase fw-semibold">
+
+<li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+<li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
+<li class="nav-item"><a class="nav-link" href="pemerintahan.html">Pemerintahan</a></li>
+<li class="nav-item"><a class="nav-link" href="berita.html">Berita</a></li>
+<li class="nav-item"><a class="nav-link" href="layanan.html">Layanan</a></li>
+<li class="nav-item"><a class="nav-link" href="transparansi.html">Transparansi</a></li>
+<li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
+<li class="nav-item"><a class="nav-link" href="kontak.html">Kontak</a></li>
+
+</ul>
+
+</div>
+
+</div>
+
 </nav>
+```
