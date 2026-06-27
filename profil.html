@@ -12,14 +12,14 @@
         /* Mengatur pembatasan tinggi baris awal untuk fitur Baca Selengkapnya */
         .read-more-container {
             position: relative;
-            max-height: 290px; /* Estimasi tinggi untuk kisaran 12 baris teks */
+            max-height: 290px; /* Estimasi tinggi 12 baris teks */
             overflow: hidden;
             transition: max-height 0.4s ease-out;
         }
         .read-more-container.expanded {
-            max-height: 2000px; /* Ruang tinggi pasca ekspansi teks */
+            max-height: 2000px; 
         }
-        /* Efek gradasi pudar tipis saat teks terpotong */
+        /* Efek gradasi pudar saat teks terpotong */
         .read-more-container::after {
             content: '';
             position: absolute;
@@ -34,92 +34,109 @@
         .read-more-container.expanded::after {
             opacity: 0;
         }
+        /* Mengunci warna marun lokal jika CSS eksternal tidak termuat */
+        .bg-custom-maroon {
+            background-color: #800000 !important;
+        }
+        .text-custom-maroon {
+            color: #800000 !important;
+        }
     </style>
 </head>
 <body class="bg-light" style="font-family: 'Poppins', sans-serif;">
 
     <header id="header-component" class="container-fluid px-md-5 py-3 bg-white shadow-sm"></header>
 
-    <main class="py-5 bg-light-custom">
+    <main class="py-5">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-8" data-aos="fade-right">
+                
+                <!-- KOLOM KIRI (col-lg-4) - Berisi Visi Misi & Potensi Utama -->
+                <div class="col-lg-4" data-aos="fade-right">
                     
-                    <div class="card border-0 shadow-sm p-4 mb-4">
-                        <h3 class="fw-bold text-maroon border-bottom pb-2">
-                            <i class="bi bi-clock-history me-2"></i>Sejarah Lembang
-                        </h3>
-                        
-      
-    <div id="sejarahText" class="read-more-container text-secondary lh-lg mb-3" style="text-align: justify;">
-        <p>Lembang Kaero merupakan wilayah adat bersejarah di Kecamatan Sangalla, Tana Toraja. Menjadi rumah bagi Tongkonan Layuk Kaero, kawasan ini menyimpan salah satu istana tertua di Toraja yang menjadi cikal bakal sistem pemerintahan adat Tallu Lembangna.</p>
-        
-        <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Pusat Pemerintahan Adat Tertua</h5>
-        <p>Kawasan Kaero sangat identik dengan keberadaan Tongkonan Layuk Kaero, sebuah rumah adat agung yang diperkirakan telah berdiri sejak tahun 1242. Tongkonan ini tidak sekadar menjadi tempat tinggal leluhur, melainkan berfungsi sebagai pusat pemerintahan adat dan istana bagi para pemimpin yang menjalankan roda kekuasaan di wilayah Sangalla dan sekitarnya.</p>
-        <p>Dari pusat adat inilah lahir silsilah para pemimpin di kawasan Tallu Lembangna (tiga wilayah adat besar: Makale, Sangalla, Mengkendek).</p>
-        
-        <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Struktur Pemerintahan Tradisional</h5>
-        <p>Lembang Kaero menganut sistem pemerintahan adat yang kuat. Secara tradisional, wilayah ini dipimpin oleh seorang Ampulembang atau Arruan. Dalam menjalankan roda pemerintahan dan peradilan, pemimpin adat ini dibantu oleh empat perangkat penting:</p>
-        <ul class="ps-3" style="text-align: left;">
-            <li><strong>Tanduk Tata':</strong> Penanggung jawab bidang pemerintahan dan pengadilan.</li>
-            <li><strong>Takia' Bassi:</strong> Penanggung jawab keamanan dan pertahanan wilayah.</li>
-            <li><strong>Issong Kalua':</strong> Penanggung jawab sektor kemakmuran rakyat.</li>
-            <li><strong>Pa'palumbangan:</strong> Penanggung jawab bidang keagamaan atau ritual adat.</li>
-        </ul>
-        
-        <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Peninggalan Sejarah dan Kepurbakalaan</h5>
-        <p>Selain bangunan megah Tongkonan, Lembang Kaero kaya akan situs cagar budaya masa lalu. Di lingkungan Lembang ini terdapat Liang Losso, yakni sebuah situs pemakaman tebing batu (liang) yang dipercaya menjadi tempat persemayaman leluhur sejak ratusan tahun lalu. Situs-situs makam kuno ini menjadi bukti kuat tingginya peradaban dan seni ukir masyarakat Kaero pada masa lampau.</p>
-        
-        <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Lembang Kaero Kini</h5>
-        <p>Secara administratif, Kaero telah ditetapkan sebagai salah satu Lembang (setingkat desa) di Kecamatan Sangalla, Kabupaten Tana Toraja. Wilayah ini terbagi menjadi beberapa dusun atau lingkungan, seperti Kasean, Kaero Tengah, Galintua, dan Tiangka, yang sebagian besar berada di ketinggian sekitar 1000 meter di atas permukaan laut. Lembang ini menjadi saksi isu bagaimana tradisi, silsilah, dan hukum adat Toraja terus dilestarikan dan dihormati dari generasi ke generasi.</p>
-    </div>
-    
-    <div class="text-start">
-        <button id="readMoreBtn" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-            Baca Selengkapnya <i class="bi bi-chevron-down ms-1"></i>
-        </button>
-    </div>
-</div>
-
-                    <div class="card border-0 shadow-sm p-4 mb-4">
-                        <h3 class="fw-bold text-maroon border-bottom pb-2">
+                    <!-- KARTU VISI & MISI (Pindah ke kiri) -->
+                    <div class="card border-0 shadow-sm p-4 mb-4 bg-white">
+                        <h4 class="fw-bold text-custom-maroon border-bottom pb-2">
                             <i class="bi bi-eye-fill me-2"></i>Visi & Misi
-                        </h3>
-                        <h5 class="fw-bold mt-3 text-dark">Visi:</h5>
-                        <blockquote class="blockquote bg-light p-3 border-start border-maroon border-3 rounded fs-6">
+                        </h4>
+                        <h6 class="fw-bold mt-3 text-dark">Visi:</h6>
+                        <blockquote class="blockquote bg-light p-3 border-start border-danger border-3 rounded small italic text-muted">
                             "Mewujudkan Lembang Kaero yang Mandiri, Sejahtera, Transparan, dan Unggul dalam Potensi Pertanian dan Perkebunan Berlandaskan Nilai Budaya Toraja."
                         </blockquote>
-                        <h5 class="fw-bold mt-3 text-dark">Misi:</h5>
-                        <ol class="text-secondary lh-lg">
+                        <h6 class="fw-bold mt-3 text-dark">Misi:</h6>
+                        <ol class="text-secondary small ps-3 lh-lg">
                             <li>Meningkatkan sistem tata kelola pemerintahan yang bersih, transparan, dan responsif.</li>
                             <li>Mengoptimalkan kualitas dan kuantitas produksi komoditas perkebunan kopi lokal.</li>
                             <li>Membangun infrastruktur desa penunjang aktivitas pertanian dan persawahan.</li>
                         </ol>
                     </div>
 
-                    <div class="card border-0 shadow-sm p-4">
-                        <h3 class="fw-bold text-maroon border-bottom pb-2">
-                            <i class="bi bi-geo-alt-fill me-2"></i>Geografis & Peta Wilayah
-                        </h3>
-                        <p class="text-secondary">Lembang Kaero didominasi oleh lanskap perbukitan subur, sangat strategis untuk areal agraris perkebunan kopi Toraja dan sistem persawahan berundak.</p>
-                        <div class="ratio ratio-21x9 rounded overflow-hidden shadow-sm mt-3">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15933.28430752527!2d119.89748685!3d-3.03551525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d93f3c4db57065f%3A0x7be28dbec126b48d!2sSangalla'%2C%20Kabupaten%20Tana%20Toraja%2C%20Sulawesi%20Selatan!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+                    <!-- KARTU POTENSI UTAMA (Diperbaiki agar teks tidak gaib/hilang) -->
+                    <div class="card border-0 bg-custom-maroon text-white p-4 mb-4 shadow-sm">
+                        <h4 class="fw-bold mb-3" style="color: #FFD700;"><i class="bi bi-tree-fill me-2"></i>Potensi Utama</h4>
+                        <div class="mb-3 border-bottom border-light border-opacity-25 pb-2">
+                            <h6 class="fw-bold mb-1" style="color: #FFD700;"><i class="bi bi-cup-hot-fill me-2"></i>Perkebunan Kopi</h6>
+                            <p class="small text-white-50 mb-0">Penghasil kopi Arabika & Robusta berkualitas khas dataran tinggi Sangalla Toraja.</p>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1" style="color: #20b2aa;"><i class="bi bi-water me-2"></i>Sektor Agraris</h6>
+                            <p class="small text-white-50 mb-0">Sistem pertanian padi mandiri yang ditopang pengairan pedesaan alami berkelanjutan.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4" data-aos="fade-left">
-                    <div class="card border-0 bg-maroon text-white p-4 mb-4 shadow-sm">
-                        <h4 class="fw-bold mb-3 text-gold"><i class="bi bi-tree-fill me-2"></i>Potensi Utama</h4>
-                        <div class="mb-3 border-bottom pb-2">
-                            <h6 class="fw-bold mb-1"><i class="bi bi-cup-hot-fill me-2 text-warning"></i>Perkebunan Kopi</h6>
-                            <p class="small text-light-50 mb-0">Penghasil kopi Arabika & Robusta berkualitas khas dataran tinggi Sangalla Toraja.</p>
+                <!-- KOLOM KANAN (col-lg-8) - Berisi Sejarah & Geografis -->
+                <div class="col-lg-8" data-aos="fade-left">
+                    
+                    <!-- KARTU SEJARAH LEMBANG (Sudah Justify + Baca Selengkapnya) -->
+                    <div class="card border-0 shadow-sm p-4 mb-4 bg-white">
+                        <h3 class="fw-bold text-custom-maroon border-bottom pb-2">
+                            <i class="bi bi-clock-history me-2"></i>Sejarah Lembang
+                        </h3>
+                        
+                        <!-- Teks Justify Di Sini -->
+                        <div id="sejarahText" class="read-more-container text-secondary lh-lg mb-3" style="text-align: justify;">
+                            <p>Lembang Kaero merupakan wilayah adat bersejarah di Kecamatan Sangalla, Tana Toraja. Menjadi rumah bagi Tongkonan Layuk Kaero, kawasan ini menyimpan salah satu istana tertua di Toraja yang menjadi cikal bakal sistem pemerintahan adat Tallu Lembangna.</p>
+                            
+                            <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Pusat Pemerintahan Adat Tertua</h5>
+                            <p>Kawasan Kaero sangat identik dengan keberadaan Tongkonan Layuk Kaero, sebuah rumah adat agung yang diperkirakan telah berdiri sejak tahun 1242. Tongkonan ini tidak sekadar menjadi tempat tinggal leluhur, melainkan berfungsi sebagai pusat pemerintahan adat dan istana bagi para pemimpin yang menjalankan roda kekuasaan di wilayah Sangalla dan sekitarnya.</p>
+                            <p>Dari pusat adat inilah lahir silsilah para pemimpin di kawasan Tallu Lembangna (tiga wilayah adat besar: Makale, Sangalla, Mengkendek).</p>
+                            
+                            <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Struktur Pemerintahan Tradisional</h5>
+                            <p>Lembang Kaero menganut sistem pemerintahan adat yang kuat. Secara tradisional, wilayah ini dipimpin oleh seorang Ampulembang atau Arruan. Dalam menjalankan roda pemerintahan dan peradilan, pemimpin adat ini dibantu oleh empat perangkat penting:</p>
+                            <ul class="ps-3" style="text-align: left;">
+                                <li><strong>Tanduk Tata':</strong> Penanggung jawab bidang pemerintahan dan pengadilan.</li>
+                                <li><strong>Takia' Bassi:</strong> Penanggung jawab keamanan dan pertahanan wilayah.</li>
+                                <li><strong>Issong Kalua':</strong> Penanggung jawab sektor kemakmuran rakyat.</li>
+                                <li><strong>Pa'palumbangan:</strong> Penanggung jawab bidang keagamaan atau ritual adat.</li>
+                            </ul>
+                            
+                            <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Peninggalan Sejarah dan Kepurbakalaan</h5>
+                            <p>Selain bangunan megah Tongkonan, Lembang Kaero kaya akan situs cagar budaya masa lalu. Di lingkungan Lembang ini terdapat Liang Losso, yakni sebuah situs pemakaman tebing batu (liang) yang dipercaya menjadi tempat persemayaman leluhur sejak ratusan tahun lalu. Situs-situs makam kuno ini menjadi bukti kuat tingginya peradaban dan seni ukir masyarakat Kaero pada masa lampau.</p>
+                            
+                            <h5 class="fw-bold text-dark mt-4 mb-2" style="text-align: left;">Lembang Kaero Kini</h5>
+                            <p>Secna administratif, Kaero telah ditetapkan sebagai salah satu Lembang (setingkat desa) di Kecamatan Sangalla, Kabupaten Tana Toraja. Wilayah ini terbagi menjadi beberapa dusun atau lingkungan, seperti Kasean, Kaero Tengah, Galintua, dan Tiangka, yang sebagian besar berada di ketinggian sekitar 1000 meter di atas permukaan laut. Lembang ini menjadi saksi isu bagaimana tradisi, silsilah, dan hukum adat Toraja terus dilestarikan dan dihormati dari generasi ke generasi.</p>
                         </div>
-                        <div>
-                            <h6 class="fw-bold mb-1"><i class="bi bi-water me-2 text-info"></i>Sektor Agraris</h6>
-                            <p class="small text-light-50 mb-0">Sistem pertanian padi mandiri yang ditopang pengairan pedesaan alami berkelanjutan.</p>
+                        
+                        <!-- Tombol Baca Selengkapnya -->
+                        <div class="text-start">
+                            <button id="readMoreBtn" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                Baca Selengkapnya <i class="bi bi-chevron-down ms-1"></i>
+                            </button>
                         </div>
                     </div>
+
+                    <!-- KARTU GEOGRAFIS -->
+                    <div class="card border-0 shadow-sm p-4 bg-white">
+                        <h3 class="fw-bold text-custom-maroon border-bottom pb-2">
+                            <i class="bi bi-geo-alt-fill me-2"></i>Geografis & Peta Wilayah
+                        </h3>
+                        <p class="text-secondary" style="text-align: justify;">Lembang Kaero didominasi oleh lanskap perbukitan subur, sangat strategis untuk areal agraris perkebunan kopi Toraja dan sistem persawahan berundak.</p>
+                        <div class="ratio ratio-21x9 rounded overflow-hidden shadow-sm mt-3">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15933.28430752527!2d119.89748685!3d-3.03551525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d93f3c4db57065f%3A0x7be28dbec126b48d!2sSangalla'%2C%20Kabupaten%20Tana%20Toraja%2C%20Sulawesi%20Selatan!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -134,19 +151,15 @@
     <script src="assets/js/Header.js"></script>
     <script src="assets/js/Footer.js"></script>
 
+    <!-- Script Baca Selengkapnya -->
     <script>
         document.getElementById('readMoreBtn').addEventListener('click', function() {
             const container = document.getElementById('sejarahText');
-            
             if (container.classList.contains('expanded')) {
-                // Sembunyikan teks kembali
                 container.classList.remove('expanded');
                 this.innerHTML = 'Baca Selengkapnya <i class="bi bi-chevron-down ms-1"></i>';
-                
-                // Mengembalikan fokus scroll layar ke area sejarah secara halus
                 container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } else {
-                // Tampilkan teks utuh
                 container.classList.add('expanded');
                 this.innerHTML = 'Sembunyikan <i class="bi bi-chevron-up ms-1"></i>';
             }
