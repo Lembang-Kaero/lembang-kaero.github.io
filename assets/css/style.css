@@ -366,3 +366,67 @@ color:#CFCFCF;
 
 }
 
+
+/* ==========================================
+   FOOTER FIX
+========================================== */
+footer img,
+.footer img{
+max-width:100%;
+
+height:auto;
+
+}
+
+/* Logo footer */
+.footer-logo{
+
+max-height:180px;
+width:auto;
+object-fit:contain;
+
+}
+
+/* Kolom footer */
+footer .row{
+align-items:flex-start;
+
+}
+
+/* Teks footer */
+footer{
+overflow:hidden;
+}
+
+footer h5,
+footer h6{
+font-size:20px;
+}
+
+footer p,
+footer li,
+footer small{
+
+font-size:15px;
+line-height:1.8;
+
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+.footer-logo{
+max-height:130px;
+
+}
+
+footer{
+text-align:center;
+}
+
+footer .row{
+gap:30px;
+
+}
+
+}
