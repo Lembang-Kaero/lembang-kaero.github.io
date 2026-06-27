@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-light" style="font-family: 'Poppins', sans-serif;">
-<header id="header-component" class="container-fluid px-md-5 py-3 bg-white shadow-sm"></header>
-    <!-- (Gunakan Header & Navbar yang sama) -->
+    
+    <header id="header-component"></header>
 
     <main class="container py-5">
         <div class="text-center mb-5">
@@ -19,7 +19,6 @@
         </div>
 
         <div class="row g-4">
-            <!-- Detail Informasi -->
             <div class="col-md-5">
                 <div class="card border-0 shadow-sm p-4 h-100 bg-white">
                     <h4 class="fw-bold mb-4 text-danger">Informasi Kontak</h4>
@@ -47,14 +46,13 @@
                 </div>
             </div>
 
-            <!-- Peta Google Maps Terintegrasi (Kecamatan Sangalla) -->
             <div class="col-md-7">
-                <div class="card border-0 shadow-sm p-2 h-100 bg-white">
-                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15933.28430752527!2d119.89748685!3d-3.03551525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d93f3c4db57065f%3A0x7be28dbec126b48d!2sSangalla&#39;%2C%20Kabupaten%20Tana%20Toraja%2C%20Sulawesi%20Selatan!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+                <div class="card border-0 shadow-sm p-2 h-100 bg-white" style="min-height: 350px;">
+                    <iframe src="https://maps.google.com/maps?q=Sangalla,Tana%20Toraja&t=&z=13&ie=UTF-8&iwloc=&output=embed" class="w-100 h-100 rounded" style="border:0; min-height: 330px;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
-        </div>
-    </main>
+        </div> </main>
+
     <footer id="footer-component" class="bg-dark text-white pt-5 pb-3 mt-5"></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
