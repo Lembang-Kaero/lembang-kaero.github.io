@@ -8,29 +8,41 @@
 
 <title>Galeri | Website Resmi Pemerintah Lembang Kaero</title>
 
-<meta name="description"
-content="Galeri kegiatan dan dokumentasi Pemerintah Lembang Kaero">
+<meta
+name="description"
+content="Galeri dokumentasi kegiatan dan pelayanan masyarakat Pemerintah Lembang Kaero">
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+rel="stylesheet">
 
-<link rel="stylesheet"
-href="assets/css/style.css">
+<link
+href="assets/css/style.css"
+rel="stylesheet">
 
 </head>
 
 <body>
 
-<header class="container-fluid px-md-5 py-3 bg-white shadow-sm">
+<!-- HEADER -->
+<header
+class="container-fluid bg-white shadow-sm"
+id="header">
 </header>
 
 
-<main class="container py-5">
+<!-- JUDUL -->
+<section class="py-5">
+
+<div class="container">
 
 <div class="text-center mb-5">
 
-<h1 class="fw-bold">
+<h1
+class="fw-bold text-uppercase">
+
 GALERI LEMBANG KAERO
+
 </h1>
 
 <p class="text-muted">
@@ -42,35 +54,50 @@ Dokumentasi kegiatan dan pelayanan masyarakat
 </div>
 
 
+<!-- GALERI -->
 <div
-class="row g-4"
+class="row"
 id="gallery">
 
 <div class="text-center">
 
-<div class="spinner-border"></div>
+<div
+class="spinner-border text-warning">
+</div>
 
 <p class="mt-3">
+
 Memuat galeri...
+
 </p>
 
 </div>
 
 </div>
 
-</main>
+</div>
+
+</section>
 
 
-<footer class="bg-dark text-light pt-5">
+<!-- FOOTER -->
+<footer
+class="bg-dark text-white pt-5 pb-3"
+id="footer">
 </footer>
 
 
-<script src="assets/js/Header.js"></script>
 
+<script src="assets/js/Header.js"></script>
 <script src="assets/js/Footer.js"></script>
 
 
+
 <script>
+
+/* ===========================
+GOOGLE SHEET
+=========================== */
 
 const SHEET_ID =
 "1PHumYBscib8egsUvJV1aRB9ReYlDe5vY6t4bLe0ntZY";
@@ -78,85 +105,141 @@ const SHEET_ID =
 const SHEET_NAME =
 "Form Responses 1";
 
-const url =
+const API =
 `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(SHEET_NAME)}`;
 
 
-/* PERBAIKAN LINK GOOGLE DRIVE */
-function convertDriveUrl(link){
+
+/* ===========================
+KONVERSI LINK GOOGLE DRIVE
+=========================== */
+
+function getImage(link){
 
 if(!link) return "";
 
-const patterns = [
+const patterns=[
 
 /id=([^&]+)/,
 /\/d\/([^/]+)/,
-/open\?id=([^&]+)/
+/file\/d\/([^/]+)/
 
 ];
 
-for(const p of patterns){
+for(let p of patterns){
 
-const m = link.match(p);
+const m=
+link.match(p);
 
 if(m){
 
-return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1600`;
 
 }
 
 }
 
-return link;
+return "";
 
 }
 
 
-fetch(url)
 
-.then(r=>r.json())
+/* ===========================
+LOAD GALERI
+=========================== */
 
-.then(data=>{
+async function loadGallery(){
 
-const gallery =
-document.getElementById("gallery");
+const gallery=
+document.getElementById(
+"gallery"
+);
+
+try{
+
+const response=
+await fetch(API);
+
+const data=
+await response.json();
 
 gallery.innerHTML="";
 
-data.reverse().forEach(item=>{
 
-const photo =
-convertDriveUrl(
+if(!data.length){
+
+gallery.innerHTML=
+
+`
+<div class="col-12">
+
+<div class="alert alert-warning text-center">
+
+Belum ada foto.
+
+</div>
+
+</div>
+`;
+
+return;
+
+}
+
+
+data
+.reverse()
+.forEach(item=>{
+
+const image=
+getImage(
 item["Upload Foto"]
 );
 
-const desc =
-item["Deskripsi Foto"] ||
-"Tanpa deskripsi";
+const desc=
 
-gallery.innerHTML += `
+item["Deskripsi Foto"]
 
-<div class="col-md-4 mb-4">
+||
 
-<div class="card shadow-sm h-100">
+"Dokumentasi Kegiatan";
+
+gallery.innerHTML +=
+
+`
+
+<div class="col-lg-4 col-md-6 mb-4">
+
+<div
+class="card shadow-sm border-0 h-100">
 
 <img
-src="${photo}"
-class="card-img-top"
+
+src="${image}"
+
 alt="${desc}"
+
 loading="lazy"
+
+class="card-img-top"
+
 style="
 height:260px;
 object-fit:cover;
 "
+
 onerror="
-this.src='assets/images/no-image.jpg'
+this.src='assets/images/no-image.png'
 ">
 
 <div class="card-body">
 
-<p class="mb-0">
+<p
+class="mb-0">
+
 ${desc}
+
 </p>
 
 </div>
@@ -169,14 +252,35 @@ ${desc}
 
 });
 
-})
+}
 
-.catch(console.error);
+catch(error){
+
+gallery.innerHTML=
+
+`
+
+<div class="col-12">
+
+<div
+class="alert alert-danger text-center">
+
+Galeri gagal dimuat
+
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+
+loadGallery();
 
 </script>
 
-
-
 </body>
 </html>
-
