@@ -5,12 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regulasi & Keputusan Lembang - Lembang Kaero</title>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/style.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/style.css">
     
     <style>
+        /* Mengunci ukuran logo di dalam footer agar seragam di semua halaman */
+        #footer-component img, 
+        #footer-component .footer-logo {
+            max-height: 80px !important;
+            width: auto !important;
+            object-fit: contain !important;
+        }
+
         /* Gaya khusus untuk halaman regulasi */
         .regulasi-container {
             max-width: 1200px;
@@ -102,14 +111,14 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-light" style="font-family: 'Poppins', sans-serif;">
 
-    <div id="header-container"></div>
+    <header id="header-component"></header>
 
     <main class="regulasi-container">
-        <div class="page-header">
-            <h1>Regulasi & Keputusan Lembang</h1>
-            <p>Daftar transparansi produk hukum, Keputusan Lembang, dan Keputusan Kepala Lembang Kaero.</p>
+        <div class="page-header mt-4">
+            <h1 class="fw-bold text-uppercase">Regulasi & Keputusan Lembang</h1>
+            <p class="text-muted">Daftar transparansi produk hukum, Keputusan Lembang, dan Keputusan Kepala Lembang Kaero.</p>
         </div>
 
         <div class="filter-section">
@@ -153,9 +162,9 @@
         </div>
     </main>
 
-    <div id="footer-container"></div>
+    <footer id="footer-component" class="bg-dark text-white pt-5 pb-3 mt-5"></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6Rzs3g7mGbJSKC4pOPQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const searchInput = document.getElementById('searchInput');
@@ -200,27 +209,9 @@
 
         searchInput.addEventListener('keyup', filterTable);
         filterType.addEventListener('change', filterTable);
-
-        // Jalur pemanggilan komponen assets/components/
-        fetch('assets/components/header.html')
-            .then(res => {
-                if (!res.ok) throw new Error('Header tidak ditemukan');
-                return res.text();
-            })
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            })
-            .catch(err => console.error(err));
-
-        fetch('assets/components/footer.html')
-            .then(res => {
-                if (!res.ok) throw new Error('Footer tidak ditemukan');
-                return res.text();
-            })
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(err => console.error(err));
     </script>
+
+    <script src="assets/js/Header.js"></script>
+    <script src="assets/js/Footer.js"></script>
 </body>
 </html>
