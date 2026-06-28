@@ -1,47 +1,71 @@
 /**
  * Header.js - Lembang Kaero Official Website Component
- * Berfungsi untuk memuat komponen Header (Navigasi) secara otomatis di seluruh halaman.
+ * Berfungsi untuk memuat komponen Header (Kop & Navigasi) secara otomatis di seluruh halaman.
  */
 
 document.addEventListener("DOMContentLoaded", function () {
     const headerElement = document.getElementById("header-component");
     
     if (headerElement) {
-        // Render struktur HTML Navbar ke dalam elemen <header id="header-component"></header>
+        // Render struktur HTML Kop & Navbar ke dalam elemen <header id="header-component"></header>
         headerElement.innerHTML = `
-        <!-- Bagian Kop Atas (Identitas Instansi Resmi) -->
-        <div class="bg-white py-3 border-bottom">
-            <div class="container d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <div class="d-flex align-items-center">
-                    <!-- Logo Kabupaten Tana Toraja & Lambang Terkait -->
-                    <img src="assets/img/logo.png" alt="Logo Tana Toraja" class="me-3" style="max-height: 70px; width: auto; object-fit: contain;">
-                    <div>
-                        <span class="text-secondary tracking-wider text-uppercase small d-block mb-1" style="font-size: 11px; font-weight: 600;">Website Resmi Pemerintah</span>
-                        <h1 class="fw-bold text-uppercase m-0 tracking-wide" style="font-size: 26px; color: #8B0000; font-family: 'Poppins', sans-serif;">Lembang Kaero</h1>
-                        <span class="text-muted small d-block mt-1" style="font-size: 12px;">Kecamatan Sangalla' • Kabupaten Tana Toraja • Provinsi Sulawesi Selatan</span>
-                    </div>
+        <div class="container-fluid bg-white py-3 border-bottom">
+            <div class="row align-items-center">
+                <!-- Sisi Kiri: Logo Kembar -->
+                <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start align-items-center gap-3 mb-3 mb-md-0 px-4">
+                    <img src="assets/images/LOGO TATOR3.png" 
+                         alt="Logo Pemerintah Kabupaten Tana Toraja" 
+                         style="height: 80px; width: auto; object-fit: contain;">
+                    <img src="assets/images/LOGO P3MD_.png" 
+                         alt="Logo P3MD Kemendesa" 
+                         style="height: 80px; width: auto; object-fit: contain;">
                 </div>
-                <!-- Slogan Transparansi -->
-                <div class="d-none d-md-block text-end">
-                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-semibold text-uppercase tracking-wider" style="font-size: 10px;">
+
+                <!-- Sisi Tengah: Judul Web Resmi -->
+                <div class="col-12 col-md-6 text-center">
+                    <div class="header-top-title" style="font-size: 18px; color: #666; letter-spacing: 1px; font-weight: 600;">
+                        WEBSITE RESMI PEMERINTAH
+                    </div>
+                    <h1 class="header-main-title" style="font-size: 36px; color: #a63a2b; font-weight: 700; margin: 2px 0; font-family: 'Poppins', sans-serif;">
+                        LEMBANG KAERO
+                    </h1>
+                    <p class="header-location" style="font-size: 14px; color: #777; margin-bottom: 5px;">
+                        Kecamatan Sangalla' • Kabupaten Tana Toraja • Provinsi Sulawesi Selatan
+                    </p>
+                    <span class="badge bg-warning text-dark px-3 py-1 text-uppercase fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">
                         Transparan • Informatif • Melayani
                     </span>
+                </div>
+
+                <!-- Sisi Kanan: Foto & Profil Kepala Lembang -->
+                <div class="col-12 col-md-3 text-center text-md-end mt-3 mt-md-0 px-4">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-end gap-2">
+                        <div class="text-md-end text-center">
+                            <div class="leader-name" style="font-weight: 700; color: #2d3748; font-size: 14px; line-height: 1.2;">
+                                Nura Massora Salusu
+                            </div>
+                            <div class="leader-position" style="font-size: 11px; color: #718096; text-transform: uppercase; font-weight: 600;">
+                                Kepala Lembang
+                            </div>
+                        </div>
+                        <img src="assets/images/Kepala Lembang .png" 
+                             alt="Foto Kepala Lembang" 
+                             style="height: 100px; width: 100px; object-fit: cover; object-position: top; border-radius: 50%; border: 1px solid #a63a2b;">
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Bagian Menu Navigasi Utama -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top py-2">
-            <div class="container">
-                <!-- Label Navigasi Mini untuk Tampilan Mobile -->
-                <a class="navbar-brand d-lg-none fw-bold text-uppercase" href="index.html" style="font-size: 14px; tracking-spacing: 1px;">Menu Utama</a>
-
-                <!-- Tombol Hamburger Menu (Responsif Ponsel) -->
-                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- NAVBAR UTAMA -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow mt-3" style="width: 100%;">
+            <div class="container-fluid px-0">
+                <a class="navbar-brand d-lg-none fw-bold text-uppercase" href="#" style="font-size: 13px; padding-left: 10px;">
+                    Lembang Kaero
+                </a>
+                <button class="navbar-toggler border-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Wrapper Menu yang Didistribusikan Secara Merata -->
                 <div class="collapse navbar-collapse px-3 px-lg-0" id="mainNavbar">
                     <ul class="navbar-nav w-100 justify-content-between align-items-center text-uppercase fw-semibold" style="font-size: 13px;">
                         <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
@@ -56,9 +80,19 @@ document.addEventListener("DOMContentLoaded", function () {
                         
                         <!-- MENU PENGADUAN BARU -->
                         <li class="nav-item">
-                            <a class="nav-link text-warning" href="pengaduan.html">
+                            <a class="nav-link text-warning border border-warning rounded px-2" href="pengaduan.html">
                                 <i class="bi bi-exclamation-triangle-fill me-1"></i>Pengaduan
                             </a>
+                        </li>
+
+                        <!-- FITUR PENCARIAN INTERAKTIF -->
+                        <li class="nav-item navbar-search py-2 py-lg-0">
+                            <form action="search-result.html" method="GET" class="input-group" style="max-width: 200px;">
+                                <input type="search" id="searchBox" name="keyword" class="form-control form-control-sm" placeholder="Cari..." required>
+                                <button class="btn btn-sm btn-warning" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -66,21 +100,17 @@ document.addEventListener("DOMContentLoaded", function () {
         </nav>
         `;
 
-        // --- SISTEM DETEKSI HALAMAN AKTIF (AUTOMATIC ACTIVE LINK) ---
-        // Mengambil nama file HTML yang sedang dibuka saat ini
+        // Logika Otomatis Link Aktif
         const currentPath = window.location.pathname.split("/").pop();
         const navLinks = headerElement.querySelectorAll(".navbar-nav .nav-link");
 
         navLinks.forEach(link => {
             const linkHref = link.getAttribute("href");
-            
-            // Logika pencocokan URL halaman aktif
             if (currentPath === linkHref || (currentPath === "" && linkHref === "index.html")) {
                 if (link.classList.contains("text-warning")) {
-                    // Jika halaman yang aktif adalah Pengaduan, pertahankan warna kuning dan tebalkan font
-                    link.classList.add("fw-bold", "border-bottom", "border-warning");
+                    link.classList.add("bg-warning", "text-dark", "fw-bold");
+                    link.classList.remove("text-warning");
                 } else {
-                    // Jika halaman biasa, berikan kelas active bawaan Bootstrap
                     link.classList.add("active");
                 }
             }
