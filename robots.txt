@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /search-result.html
+
+Sitemap: https://lembang-kaero.github.io/sitemap.xml
