@@ -12,35 +12,22 @@
 }
 
 .navbar .nav-link{
-
     color:#F5F5F5 !important;
-
     padding:10px 14px;
-
     border-radius:8px;
-
     transition:.25s;
-
     font-size:13px;
-
     letter-spacing:.3px;
-
 }
 
 .navbar .nav-link:hover{
-
     background:rgba(255,255,255,.08);
-
     color:#FFD54F !important;
-
 }
 
 .navbar .nav-link.active{
-
     background:#8B1E1E;
-
     color:#FFF !important;
-
 }
 
 
@@ -49,17 +36,12 @@
 ========================================================== */
 
 .navbar .nav-link.text-warning{
-
     color:#FFD54F !important;
-
 }
 
 .navbar .nav-link.text-warning:hover{
-
     background:#FFD54F;
-
     color:#222 !important;
-
 }
 
 
@@ -68,39 +50,25 @@
 ========================================================== */
 
 .navbar-search{
-
     min-width:220px;
-
 }
 
 #searchBox{
-
     border-radius:30px;
-
     border:none;
-
     padding-left:18px;
-
     font-size:13px;
-
     transition:.3s;
-
 }
 
 #searchBox:focus{
-
     width:250px;
-
     box-shadow:0 0 0 .18rem rgba(255,193,7,.25);
-
 }
 
 .navbar-search .btn{
-
     border-radius:30px;
-
     width:42px;
-
 }
 
 
@@ -109,51 +77,37 @@
 ========================================================== */
 
 .sticky-top{
-
     z-index:1050;
-
 }
 
 
 /* ==========================================================
-   MOBILE
+   MOBILE (NAVBAR)
 ========================================================== */
 
 @media(max-width:991px){
 
-.navbar-nav{
+    .navbar-nav{
+        margin-top:10px;
+    }
 
-margin-top:10px;
+    .navbar .nav-link{
+        padding:12px;
+        border-bottom:1px solid rgba(255,255,255,.06);
+    }
 
-}
+    .navbar-search{
+        margin-top:15px;
+        width:100%;
+    }
 
-.navbar .nav-link{
+    #searchBox{
+        width:100%;
+    }
 
-padding:12px;
-
-border-bottom:1px solid rgba(255,255,255,.06);
-
-}
-
-.navbar-search{
-
-margin-top:15px;
-
-width:100%;
-
-}
-
-#searchBox{
-
-width:100%;
-
-}
-
-.navbar-search .btn{
-
-margin-left:8px;
-
-}
+    .navbar-search .btn{
+        margin-left:8px;
+    }
 
 }
 
@@ -163,19 +117,40 @@ margin-left:8px;
 ========================================================== */
 
 .header-logo{
-
-height:75px;
-
+    height:75px;
 }
 
 .header-main-title{
-
-letter-spacing:1px;
-
+    letter-spacing:1px;
 }
 
 .badge{
+    border-radius:25px;
+}
 
-border-radius:25px;
 
+/* ==========================================================
+   FITUR READ MORE (SEJARAH) - PERBAIKAN DI HP
+========================================================== */
+
+/* Keadaan default container sebelum diklik (saat teks pendek) */
+.read-more-container {
+    max-height: 200px; 
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Keadaan dinamis saat tombol "Baca Selengkapnya" diklik */
+.read-more-container.expanded {
+    height: auto !important;          /* Memaksa tinggi mengikuti jumlah baris teks asli */
+    max-height: none !important;      /* Menghapus batasan tinggi maksimal */
+    overflow: visible !important;     /* Memastikan tidak ada teks yang tersembunyi */
+    padding-bottom: 20px;             /* Memberikan ruang agar tidak menempel ke tombol Sembunyikan */
+}
+
+/* Penyesuaian khusus jarak bawah di layar HP */
+@media (max-width: 991px) {
+    .read-more-container.expanded {
+        padding-bottom: 30px !important; /* Ruang aman ekstra di layar ponsel */
+    }
 }
