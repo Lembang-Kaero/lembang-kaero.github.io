@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regulasi & Keputusan Lembang - Lembang Kaero</title>
+    <title>Layanan Pengaduan Warga | Lembang Kaero</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
@@ -12,153 +12,94 @@
     <link rel="stylesheet" href="assets/css/style.css">
     
     <style>
-        /* Mengunci ukuran logo di dalam footer agar seragam di semua halaman */
+        /* Mengunci ukuran logo di dalam footer agar seragam */
         #footer-component img, 
         #footer-component .footer-logo {
             max-height: 80px !important;
             width: auto !important;
             object-fit: contain !important;
         }
-
-        /* Gaya khusus untuk halaman tabel regulasi */
-        .regulasi-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+        .card-pengaduan {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        .page-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .page-header h1 {
-            color: #27ae60;
-            margin-bottom: 10px;
-        }
-        .filter-section {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .search-input, .filter-select {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .search-input {
-            flex: 1;
-            min-width: 250px;
-        }
-        .filter-select {
-            min-width: 200px;
-        }
-        .table-responsive {
-            overflow-x: auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .table-regulasi {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-        .table-regulasi th, .table-regulasi td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .table-regulasi th {
-            background-color: #27ae60;
-            color: #fff;
-            font-weight: 600;
-        }
-        .table-regulasi tr:hover {
-            background-color: #f9f9f9;
-        }
-        .badge {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-        }
-        .badge-lembang {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-        .badge-kepala {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
-        .btn-download {
-            background-color: #2ecc71;
+        .btn-whatsapp {
+            background-color: #25D366;
             color: white;
-            padding: 6px 12px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 13px;
-            transition: background 0.2s;
+            font-weight: 600;
+            transition: all 0.2s;
         }
-        .btn-download:hover {
-            background-color: #27ae60;
+        .btn-whatsapp:hover {
+            background-color: #20ba56;
+            color: white;
+            transform: translateY(-2px);
         }
-        .no-data {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-            display: none;
+        .btn-email-alt {
+            background-color: #007bff;
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-email-alt:hover {
+            background-color: #0056b3;
+            color: white;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body class="bg-light" style="font-family: 'Poppins', sans-serif;">
-
+    
     <header id="header-component"></header>
 
-    <main class="regulasi-container">
-        <div class="page-header mt-4">
-            <h1 class="fw-bold text-uppercase" style="color: #27ae60;">Regulasi & Keputusan Lembang</h1>
-            <p class="text-muted">Daftar transparansi produk hukum, Keputusan Lembang, dan Keputusan Kepala Lembang Kaero.</p>
+    <main class="container py-5">
+        <div class="text-center mb-5 mt-3">
+            <h2 class="fw-bold text-uppercase">Layanan Pengaduan Warga</h2>
+            <p class="text-muted">Sampaikan aspirasi, laporan, atau keluhan Anda secara langsung ke Pemerintah Lembang Kaero</p>
         </div>
 
-        <div class="filter-section">
-            <input type="text" id="searchInput" class="search-input" placeholder="Cari berdasarkan judul atau nomor keputusan...">
-            <select id="filterType" class="filter-select">
-                <option value="all">Semua Jenis Regulasi</option>
-                <option value="Keputusan Lembang">Keputusan Lembang</option>
-                <option value="Keputusan Kepala Lembang">Keputusan Kepala Lembang</option>
-            </select>
-        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card card-pengaduan p-4 p-md-5 bg-white">
+                    <h4 class="fw-bold mb-4 text-success text-center">Formulir Laporan Pengaduan</h4>
+                    
+                    <form id="pengaduanForm">
+                        <div class="mb-3">
+                            <label for="nama" class="form-label fw-semibold">Nama Lengkap Pelapor</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Masukkan nama Anda (Bisa samarkan jika ingin anonim)" required>
+                        </div>
 
-        <div class="table-responsive">
-            <table class="table-regulasi" id="regulasiTable">
-                <thead>
-                    <tr>
-                        <th>No / Nomor SK</th>
-                        <th>Tentang / Judul Regulasi</th>
-                        <th>Jenis</th>
-                        <th>Tahun</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Nomor 03 Tahun 2026</td>
-                        <td>Rencana Anggaran Pendapatan dan Belanja Lembang (RAPBL) Kaero Tahun Anggaran 2026</td>
-                        <td><span class="badge badge-lembang">Keputusan Lembang</span></td>
-                        <td>2026</td>
-                        <td><a href="https://drive.google.com/file/d/169I3ROLpwV0cYV-RduwadveO-MiEfvsl/view?usp=sharing" class="btn-download" target="_blank">Unduh PDF</a></td>
-                    </tr>
-                    <tr>
-                        <td>Nomor 02 Tahun 2026</td>
-                        <td>Penetapan Penerima Bantuan Langsung Tunai (BLT) Dana Desa Lembang Kaero</td>
-                        <td><span class="badge badge-kepala">Keputusan Kepala Lembang</span></td>
-                        <td>2026</td>
-                        <td><a href="assets/doc/sk-blt-2026.pdf" class="btn-download" target="_blank">Unduh PDF</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="noDataMessage" class="no-data">Dokumen regulasi tidak ditemukan.</div>
+                        <div class="mb-3">
+                            <label for="dusun" class="form-label fw-semibold">Asal Dusun / Kampung</label>
+                            <input type="text" class="form-control" id="dusun" placeholder="Contoh: Dusun Kaero" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="judul" class="form-label fw-semibold">Judul/Perihal Pengaduan</label>
+                            <input type="text" class="form-control" id="judul" placeholder="Contoh: Lampu Jalan Padam, Perbaikan Saluran Air, dll." required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="isi" class="form-label fw-semibold">Rincian Pengaduan / Keluhan</label>
+                            <textarea class="form-control" id="isi" rows="5" placeholder="Tuliskan secara lengkap kronologi, lokasi, atau detail aspirasi yang ingin disampaikan..." required></textarea>
+                        </div>
+
+                        <div class="d-grid gap-3 d-md-flex justify-content-md-center mt-4">
+                            <button type="button" onclick="kirimWhatsApp()" class="btn btn-whatsapp px-4 py-3 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-whatsapp fs-5 me-2"></i> Kirim via WhatsApp Admin
+                            </button>
+                            
+                            <button type="button" onclick="kirimEmail()" class="btn btn-email-alt px-4 py-3 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-envelope-fill fs-5 me-2"></i> Kirim via E-mail Resmi
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-4 pt-3 border-top text-center text-muted small">
+                        <i class="bi bi-shield-lock-fill text-warning"></i> Seluruh data pengaduan dikirim langsung menuju kontak resmi Pemerintah Lembang Kaero.
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -167,48 +108,55 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const filterType = document.getElementById('filterType');
-        const table = document.getElementById('regulasiTable');
-        const tr = table.getElementsByTagName('tr');
-        const noDataMessage = document.getElementById('noDataMessage');
+        // Data Kontak Resmi Lembang Kaero sesuai data internal
+        const nomorWAAdmin = "6281318785080"; // Menggunakan kode negara 62 untuk integrasi API WhatsApp resmi
+        const emailLembang = "lembangkaero01@gmail.com";
 
-        function filterTable() {
-            const filterValue = searchInput.value.toLowerCase();
-            const selectValue = filterType.value;
-            let visibleRows = 0;
-
-            for (let i = 1; i < tr.length; i++) {
-                const tdNumber = tr[i].getElementsByTagName('td')[0];
-                const tdTitle = tr[i].getElementsByTagName('td')[1];
-                const tdType = tr[i].getElementsByTagName('td')[2];
-
-                if (tdNumber && tdTitle && tdType) {
-                    const numberText = tdNumber.textContent || tdNumber.innerText;
-                    const titleText = tdTitle.textContent || tdTitle.innerText;
-                    const typeText = tdType.textContent || tdType.innerText;
-
-                    const matchesSearch = numberText.toLowerCase().indexOf(filterValue) > -1 || titleText.toLowerCase().indexOf(filterValue) > -1;
-                    const matchesType = selectValue === 'all' || typeText.trim() === selectValue;
-
-                    if (matchesSearch && matchesType) {
-                        tr[i].style.display = "";
-                        visibleRows++;
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-
-            if (visibleRows === 0) {
-                noDataMessage.style.display = "block";
-            } else {
-                noDataMessage.style.display = "none";
-            }
+        function ambilDataForm() {
+            const nama = document.getElementById('nama').value;
+            const dusun = document.getElementById('dusun').value;
+            const judul = document.getElementById('judul').value;
+            const isi = document.getElementById('isi').value;
+            return { nama, dusun, judul, isi };
         }
 
-        searchInput.addEventListener('keyup', filterTable);
-        filterType.addEventListener('change', filterTable);
+        function validasiForm(data) {
+            if (!data.nama || !data.dusun || !data.judul || !data.isi) {
+                alert("Harap lengkapi seluruh formulir sebelum mengirim laporan.");
+                return false;
+            }
+            return true;
+        }
+
+        // 1. FUNGSI KIRIM KE WHATSAPP ADMIN
+        function kirimWhatsApp() {
+            const data = ambilDataForm();
+            if (!validasiForm(data)) return;
+
+            // Membuat format pesan WhatsApp teks terstruktur
+            const textPesan = `*PENGADUAN WARGA LEMBANG KAERO*%n%n` +
+                              `• *Nama Pelapor:* ${data.nama}%n` +
+                              `• *Asal Dusun:* ${data.dusun}%n` +
+                              `• *Perihal:* ${data.judul}%n%n` +
+                              `*Isi Pengaduan:*%n${data.isi}`;
+            
+            // Mengarahkan ke link API WhatsApp Web / Aplikasi
+            const urlWA = `https://api.whatsapp.com/send?phone=${nomorWAAdmin}&text=${encodeURIComponent(textPesan).replace(/%25n/g, '%0A')}`;
+            window.open(urlWA, '_blank');
+        }
+
+        // 2. FUNGSI KIRIM KE E-MAIL RESMI
+        function kirimEmail() {
+            const data = ambilDataForm();
+            if (!validasiForm(data)) return;
+
+            // Membuat subjek dan isi format untuk mailto browser
+            const subjectEmail = `Pengaduan Warga: ${data.judul} - ${data.nama}`;
+            const bodyEmail = `Yth. Pemerintah Lembang Kaero,\n\nBerikut rincian pengaduan yang ingin saya sampaikan:\n\nNama Pelapor: ${data.nama}\nAsal Dusun: ${data.dusun}\nPerihal: ${data.judul}\n\nDetail Pengaduan:\n${data.isi}\n\nMohon untuk dapat ditindaklanjuti. Terima kasih.`;
+            
+            const urlEmail = `mailto:${emailLembang}?subject=${encodeURIComponent(subjectEmail)}&body=${encodeURIComponent(bodyEmail)}`;
+            window.location.href = urlEmail;
+        }
     </script>
 
     <script src="assets/js/Header.js"></script>
