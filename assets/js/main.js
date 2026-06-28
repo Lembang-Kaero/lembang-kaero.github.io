@@ -157,4 +157,27 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    // =========================================================================
+    // [3] FITUR BARU: LOGIKA INTEGRASI TOMBOL KEMBALI KE ATAS (BACK TO TOP)
+    // =========================================================================
+    const btnBackToTop = document.getElementById("btnBackToTop");
+    if (btnBackToTop) {
+        // Deteksi scroll halaman
+        window.addEventListener("scroll", function () {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                btnBackToTop.style.setProperty("display", "flex", "important");
+            } else {
+                btnBackToTop.style.setProperty("display", "none", "important");
+            }
+        });
+
+        // Aksi klik kembali ke atas dengan smooth scroll
+        btnBackToTop.addEventListener("click", function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    }
 });
