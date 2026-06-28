@@ -161,3 +161,35 @@
 .text-gold {
     color: #FFD54F !important; /* Menggunakan kode warna emas cerah agar senada dengan hover menu Anda */
 }
+/* ==========================================================
+   WARNA EMAS CUSTOM BANNER
+========================================================== */
+.text-gold {
+    color: #FFD54F !important;
+}
+
+/* ==========================================================
+   TOMBOL KEMBALI KE ATAS (BACK TO TOP)
+========================================================== */
+#btnBackToTop {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+    z-index: 99;
+    border: none;
+    outline: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#btnBackToTop:hover {
+    background-color: #8B1E1E !important;
+    color: #ffffff !important;
+    transform: translateY(-5px);
+}
