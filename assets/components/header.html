@@ -26,24 +26,26 @@
     </div>
 
     <div class="col-12 col-md-3 text-center text-md-end mt-3 mt-md-0">
-        <div class="d-flex align-items-center justify-content-center justify-content-md-end gap-2">
-            <div class="text-md-end text-center">
+        <div class="d-flex flex-column align-items-center justify-content-center justify-content-md-end gap-2">
+            
+            <img src="assets/images/Kepala Lembang .png" 
+                 alt="Foto Kepala Lembang" 
+                 style="height: 110px; width: 85px; object-fit: cover; object-position: top; border-radius: 4px; border: 1px solid #a63a2b;">
+            
+            <div class="text-center text-md-end">
                 <div class="leader-name" style="font-weight: 700; color: #2d3748; font-size: 14px; line-height: 1.2;">
                     Nura Massora Salusu
                 </div>
-                <div class="leader-position" style="font-size: 11px; color: #718096; text-uppercase: uppercase; font-weight: 600;">
+                <div class="leader-position" style="font-size: 11px; color: #718096; text-transform: uppercase; font-weight: 600;">
                     Kepala Lembang
                 </div>
             </div>
-            <img src="assets/images/Kepala Lembang .png" 
-                 alt="Foto Kepala Lembang" 
-                 style="height: 100px; width: 100px; object-fit: cover; object-position: top; border-radius: 50%; border: 1px solid #a63a2b;">
+
         </div>
     </div>
 
 </div>
 
-<!-- NAVBAR UTAMA -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow mt-3" style="width: 100%;">
     <div class="container-fluid px-0">
         <a class="navbar-brand d-lg-none fw-bold text-uppercase" href="#" style="font-size: 13px; padding-left: 10px;">
@@ -54,7 +56,6 @@
         </button>
 
         <div class="collapse navbar-collapse px-3 px-lg-0" id="mainNavbar">
-            <!-- navbar-nav w-100 kini mendistribusikan item secara merata termasuk menu baru -->
             <ul class="navbar-nav w-100 justify-content-between align-items-center text-uppercase fw-semibold" style="font-size: 13px;">
                 <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
                 <li class="nav-item"><a class="nav-link" href="profil.html">Profil</a></li>
@@ -64,16 +65,14 @@
                 <li class="nav-item"><a class="nav-link" href="transparansi.html">Transparansi</a></li>
                 <li class="nav-item"><a class="nav-link" href="galeri.html">Galeri</a></li>
                 <li class="nav-item"><a class="nav-link" href="kontak.html">Kontak</a></li>
-                 <li class="nav-item"><a class="nav-link" href="regulasi.html">Regulasi Lembang</a></li>
+                <li class="nav-item"><a class="nav-link" href="regulasi.html">Regulasi Lembang</a></li>
                 
-                <!-- MENU PENGADUAN BARU (Otomatis mewarisi style .text-warning dari CSS Anda) -->
                 <li class="nav-item">
                     <a class="nav-link text-warning" href="pengaduan.html">
                         <i class="bi bi-exclamation-triangle-fill me-1"></i>Pengaduan
                     </a>
                 </li>
 
-                <!-- FITUR PENCARIAN INTERAKTIF (Sesuai dengan penamaan CSS Anda) -->
                 <li class="nav-item navbar-search py-2 py-lg-0">
                     <form action="search-result.html" method="GET" class="input-group">
                         <input type="search" id="searchBox" name="keyword" class="form-control" placeholder="Cari..." required>
