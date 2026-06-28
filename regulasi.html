@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regulasi & Keputusan Lembang - Lembang Kaero</title>
-    <!-- Menghubungkan ke file CSS utama Anda -->
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* Gaya khusus untuk halaman regulasi */
@@ -100,7 +99,6 @@
 </head>
 <body>
 
-    <!-- Tempat menampung komponen Header otomatis -->
     <div id="header-container"></div>
 
     <main class="regulasi-container">
@@ -109,7 +107,6 @@
             <p>Daftar transparansi produk hukum, Keputusan Lembang, dan Keputusan Kepala Lembang Kaero.</p>
         </div>
 
-        <!-- Bagian Filter & Pencarian -->
         <div class="filter-section">
             <input type="text" id="searchInput" class="search-input" placeholder="Cari berdasarkan judul atau nomor keputusan...">
             <select id="filterType" class="filter-select">
@@ -119,7 +116,6 @@
             </select>
         </div>
 
-        <!-- Tabel Regulasi -->
         <div class="table-responsive">
             <table class="table-regulasi" id="regulasiTable">
                 <thead>
@@ -132,7 +128,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Contoh Data 1 -->
                     <tr>
                         <td>Nomor 03 Tahun 2026</td>
                         <td>Rencana Anggaran Pendapatan dan Belanja Lembang (RAPBL) Kaero Tahun Anggaran 2026</td>
@@ -140,7 +135,6 @@
                         <td>2026</td>
                         <td><a href="https://drive.google.com/file/d/169I3ROLpwV0cYV-RduwadveO-MiEfvsl/view?usp=sharing" class="btn-download" target="_blank">Unduh PDF</a></td>
                     </tr>
-                    <!-- Contoh Data 2 -->
                     <tr>
                         <td>Nomor 02 Tahun 2026</td>
                         <td>Penetapan Penerima Bantuan Langsung Tunai (BLT) Dana Desa Lembang Kaero</td>
@@ -154,10 +148,8 @@
         </div>
     </main>
 
-    <!-- Tempat menampung komponen Footer otomatis -->
     <div id="footer-container"></div>
 
-    <!-- JavaScript untuk fungsi Pencarian dan Filter Interaktif -->
     <script>
         const searchInput = document.getElementById('searchInput');
         const filterType = document.getElementById('filterType');
@@ -202,18 +194,26 @@
         searchInput.addEventListener('keyup', filterTable);
         filterType.addEventListener('change', filterTable);
 
-        // KODE AKTIF: Berhasil membuka komentar untuk memanggil file header dan footer
-        fetch('header.html')
-            .then(res => res.text())
+        // PERBAIKAN: Jalur pemanggilan diubah ke folder assets/components/
+        fetch('assets/components/header.html')
+            .then(res => {
+                if (!res.ok) throw new Error('Header tidak ditemukan');
+                return res.text();
+            })
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
-            });
+            })
+            .catch(err => console.error(err));
 
-        fetch('footer.html')
-            .then(res => res.text())
+        fetch('assets/components/footer.html')
+            .then(res => {
+                if (!res.ok) throw new Error('Footer tidak ditemukan');
+                return res.text();
+            })
             .then(data => {
                 document.getElementById('footer-container').innerHTML = data;
-            });
+            })
+            .catch(err => console.error(err));
     </script>
 </body>
 </html>
