@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulasi & Keputusan Lembang - Lembang Kaero</title>
+    <!-- Menghubungkan ke file CSS utama Anda -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Gaya khusus untuk halaman regulasi */
+        .regulasi-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .page-header h1 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        .filter-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .search-input, .filter-select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+        }
+        .filter-select {
+            min-width: 200px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .table-regulasi {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .table-regulasi th, .table-regulasi td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .table-regulasi th {
+            background-color: #27ae60;
+            color: #fff;
+            font-weight: 600;
+        }
+        .table-regulasi tr:hover {
+            background-color: #f9f9f9;
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .badge-lembang {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .badge-kepala {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .btn-download {
+            background-color: #2ecc71;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .btn-download:hover {
+            background-color: #27ae60;
+        }
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Memanggil Header (Gunakan metode include PHP atau JS Fetch yang Anda pakai) -->
+    <div id="header-container"></div>
+
+    <main class="regulasi-container">
+        <div class="page-header">
+            <h1>Regulasi & Keputusan Lembang</h1>
+            <p>Daftar transparansi produk hukum, Keputusan Lembang, dan Keputusan Kepala Lembang Kaero.</p>
+        </div>
+
+        <!-- Bagian Filter & Pencarian -->
+        <div class="filter-section">
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari berdasarkan judul atau nomor keputusan...">
+            <select id="filterType" class="filter-select">
+                <option value="all">Semua Jenis Regulasi</option>
+                <option value="Keputusan Lembang">Keputusan Lembang</option>
+                <option value="Keputusan Kepala Lembang">Keputusan Kepala Lembang</option>
+            </select>
+        </div>
+
+        <!-- Tabel Regulasi -->
+        <div class="table-responsive">
+            <table class="table-regulasi" id="regulasiTable">
+                <thead>
+                    <tr>
+                        <th>No / Nomor SK</th>
+                        <th>Tentang / Judul Regulasi</th>
+                        <th>Jenis</th>
+                        <th>Tahun</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Contoh Data 1 (Silakan sesuaikan isi atau tambahkan di bawahnya) -->
+                    <tr>
+                        <td>Nomor 04 Tahun 2025</td>
+                        <td>Rencana Kerja Pemerintah Lembang (RKPL) Kaero Tahun Anggaran 2026</td>
+                        <td><span class="badge badge-lembang">Keputusan Lembang</span></td>
+                        <td>2025</td>
+                        <td><a href="assets/doc/sk-rkpl-2026.pdf" class="btn-download" target="_blank">Unduh PDF</a></td>
+                    </tr>
+                    <!-- Contoh Data 2 -->
+                    <tr>
+                        <td>Nomor 02 Tahun 2026</td>
+                        <td>Penetapan Penerima Bantuan Langsung Tunai (BLT) Dana Desa Lembang Kaero</td>
+                        <td><span class="badge badge-kepala">Keputusan Kepala Lembang</span></td>
+                        <td>2026</td>
+                        <td><a href="assets/doc/sk-blt-2026.pdf" class="btn-download" target="_blank">Unduh PDF</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="noDataMessage" class="no-data">Dokumen regulasi tidak ditemukan.</div>
+        </div>
+    </main>
+
+    <!-- Memanggil Footer -->
+    <div id="footer-container"></div>
+
+    <!-- JavaScript untuk fungsi Pencarian dan Filter Interaktif -->
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const filterType = document.getElementById('filterType');
+        const table = document.getElementById('regulasiTable');
+        const tr = table.getElementsByTagName('tr');
+        const noDataMessage = document.getElementById('noDataMessage');
+
+        function filterTable() {
+            const filterValue = searchInput.value.toLowerCase();
+            const selectValue = filterType.value;
+            let visibleRows = 0;
+
+            for (let i = 1; i < tr.length; i++) {
+                const tdNumber = tr[i].getElementsByTagName('td')[0];
+                const tdTitle = tr[i].getElementsByTagName('td')[1];
+                const tdType = tr[i].getElementsByTagName('td')[2];
+
+                if (tdNumber && tdTitle && tdType) {
+                    const numberText = tdNumber.textContent || tdNumber.innerText;
+                    const titleText = tdTitle.textContent || tdTitle.innerText;
+                    const typeText = tdType.textContent || tdType.innerText;
+
+                    const matchesSearch = numberText.toLowerCase().indexOf(filterValue) > -1 || titleText.toLowerCase().indexOf(filterValue) > -1;
+                    const matchesType = selectValue === 'all' || typeText.trim() === selectValue;
+
+                    if (matchesSearch && matchesType) {
+                        tr[i].style.display = "";
+                        visibleRows++;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+            if (visibleRows === 0) {
+                noDataMessage.style.display = "block";
+            } else {
+                noDataMessage.style.display = "none";
+            }
+        }
+
+        searchInput.addEventListener('keyup', filterTable);
+        filterType.addEventListener('change', filterTable);
+
+        // Simulasi load komponen header/footer jika Anda menggunakan JS script standar
+        // Silakan sesuaikan dengan sistem integrasi header/footer yang sudah Anda miliki
+        /*
+        fetch('header.html').then(res => res.text()).then(data => document.getElementById('header-container').innerHTML = data);
+        fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer-container').innerHTML = data);
+        */
+    </script>
+</body>
+</html>
