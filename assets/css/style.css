@@ -154,3 +154,10 @@
         padding-bottom: 30px !important; /* Ruang aman ekstra di layar ponsel */
     }
 }
+/* ==========================================================
+   WARNA EMAS CUSTOM
+========================================================== */
+
+.text-gold {
+    color: #FFD54F !important; /* Menggunakan kode warna emas cerah agar senada dengan hover menu Anda */
+}
