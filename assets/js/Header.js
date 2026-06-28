@@ -41,24 +41,5 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error('Kendala sistem Header:', error));
     }
-    // ==========================================================
-    // LOGIKA TOMBOL KEMBALI KE ATAS
-    // ==========================================================
-    const myButton = document.getElementById("btnBackToTop");
-    if (myButton) {
-        window.addEventListener("scroll", function () {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                myButton.style.display = "flex";
-            } else {
-                myButton.style.display = "none";
-            }
-        });
-
-        myButton.addEventListener("click", function () {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-    }
+  
 });
