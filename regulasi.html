@@ -100,7 +100,7 @@
 </head>
 <body>
 
-    <!-- Memanggil Header (Gunakan metode include PHP atau JS Fetch yang Anda pakai) -->
+    <!-- Tempat menampung komponen Header otomatis -->
     <div id="header-container"></div>
 
     <main class="regulasi-container">
@@ -132,7 +132,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Contoh Data 1 (Silakan sesuaikan isi atau tambahkan di bawahnya) -->
+                    <!-- Contoh Data 1 -->
                     <tr>
                         <td>Nomor 03 Tahun 2026</td>
                         <td>Rencana Anggaran Pendapatan dan Belanja Lembang (RAPBL) Kaero Tahun Anggaran 2026</td>
@@ -154,7 +154,7 @@
         </div>
     </main>
 
-    <!-- Memanggil Footer -->
+    <!-- Tempat menampung komponen Footer otomatis -->
     <div id="footer-container"></div>
 
     <!-- JavaScript untuk fungsi Pencarian dan Filter Interaktif -->
@@ -202,12 +202,18 @@
         searchInput.addEventListener('keyup', filterTable);
         filterType.addEventListener('change', filterTable);
 
-        // Simulasi load komponen header/footer jika Anda menggunakan JS script standar
-        // Silakan sesuaikan dengan sistem integrasi header/footer yang sudah Anda miliki
-        /*
-        fetch('header.html').then(res => res.text()).then(data => document.getElementById('header-container').innerHTML = data);
-        fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer-container').innerHTML = data);
-        */
+        // KODE AKTIF: Berhasil membuka komentar untuk memanggil file header dan footer
+        fetch('header.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
     </script>
 </body>
 </html>
