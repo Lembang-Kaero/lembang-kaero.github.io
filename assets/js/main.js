@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // =====================================================================
-    // CUSTOM PLUGIN: DATA LABELS PADA PIE CHART (built-in, tanpa CDN)
+    // CUSTOM PLUGIN: SMART DATA LABELS (anti-tumpuk)
     // =====================================================================
     const dataLabelsPlugin = {
-        id: 'customDataLabels',
+        id: 'smartDataLabels',
         afterDraw(chart) {
             const ctx = chart.ctx;
             const meta = chart.getDatasetMeta(0);
@@ -23,43 +23,70 @@ document.addEventListener("DOMContentLoaded", function () {
             
             meta.data.forEach((element, index) => {
                 const value = dataset.data[index];
-                const pct = ((value * 100) / total).toFixed(1) + '%';
-                const label = formatRupiah(value);
+                const pct = (value * 100) / total;
+                const pctText = pct.toFixed(1) + '%';
+                const rpText = formatRupiah(value);
                 
-                // Ambil posisi tengah potongan pie
-                const pos = element.tooltipPosition();
-                
-                // Hitung sudut tengah untuk menggeser label ke luar sedikit
                 const startAngle = element.startAngle;
                 const endAngle = element.endAngle;
-                const midAngle = (startAngle + endAngle) / 2;
-                const outerRadius = element.outerRadius;
-                const offset = outerRadius * 0.65; // 65% dari pusat ke tepi
+                const midAngle = (startAngle + endAngle) / 2 - Math.PI / 2;
+                const outerR = element.outerRadius;
+                const innerR = element.innerRadius;
                 
-                const x = pos.x + Math.cos(midAngle - Math.PI / 2) * (offset - outerRadius * 0.15);
-                const y = pos.y + Math.sin(midAngle - Math.PI / 2) * (offset - outerRadius * 0.15);
+                const isSmall = pct < 15;
                 
-                // Gambar teks nilai
                 ctx.save();
-                ctx.fillStyle = '#fff';
-                ctx.font = 'bold 12px Poppins, sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.shadowColor = 'rgba(0,0,0,0.6)';
-                ctx.shadowBlur = 3;
-                ctx.fillText(label, x, y - 7);
+                ctx.shadowColor = 'rgba(0,0,0,0.7)';
+                ctx.shadowBlur = 2;
                 
-                // Gambar teks persentase
-                ctx.font = '10px Poppins, sans-serif';
-                ctx.fillStyle = '#FFD54F';
-                ctx.fillText(pct, x, y + 10);
+                if (isSmall) {
+                    // === SLICE KECIL: label di LUAR + garis penunjuk ===
+                    const labelR = outerR + 30;
+                    const midR = outerR + 8;
+                    const xOut = Math.cos(midAngle) * labelR;
+                    const yOut = Math.sin(midAngle) * labelR;
+                    const xMid = Math.cos(midAngle) * midR;
+                    const yMid = Math.sin(midAngle) * midR;
+                    
+                    // Garis penunjuk
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(xMid, yMid);
+                    ctx.lineTo(xOut, yOut);
+                    ctx.stroke();
+                    
+                    // Teks
+                    ctx.shadowBlur = 4;
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 10px Poppins, sans-serif';
+                    ctx.fillText(rpText, xOut, yOut - 8);
+                    ctx.font = '9px Poppins, sans-serif';
+                    ctx.fillStyle = '#FFD54F';
+                    ctx.fillText(pctText, xOut, yOut + 6);
+                } else {
+                    // === SLICE BESAR: label di DALAM ===
+                    const offset = outerR * 0.62;
+                    const x = Math.cos(midAngle) * offset;
+                    const y = Math.sin(midAngle) * offset;
+                    
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 11px Poppins, sans-serif';
+                    ctx.fillText(rpText, x, y - 7);
+                    ctx.font = '10px Poppins, sans-serif';
+                    ctx.fillStyle = '#FFD54F';
+                    ctx.fillText(pctText, x, y + 8);
+                }
+                
                 ctx.restore();
             });
         }
     };
 
     // =========================================================================
-    // [1] INITIALIZATION GRAFIK TAHUN ANGGARAN 2026
+    // [1] GRAFIK TAHUN ANGGARAN 2026
     // =========================================================================
     const ctxIncome2026 = document.getElementById('pageIncomeChart')?.getContext('2d');
     if (ctxIncome2026) {
@@ -77,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: { padding: { top: 10, bottom: 10, left: 20, right: 20 } },
                 plugins: {
                     legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
@@ -113,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: { padding: { top: 30, bottom: 10, left: 30, right: 30 } },
                 plugins: {
                     legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
@@ -128,10 +157,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // =========================================================================
-    // [2] INITIALIZATION GRAFIK LAPORAN REALISASI TAHUN 2025
+    // [2] GRAFIK LAPORAN REALISASI TAHUN 2025
     // =========================================================================
     
-    // A. Grafik Realisasi Pendapatan 2025
     const ctxIncome2025 = document.getElementById('pageIncomeChart2025')?.getContext('2d');
     if (ctxIncome2025) {
         new Chart(ctxIncome2025, {
@@ -152,11 +180,9 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: { padding: { top: 10, bottom: 10, left: 20, right: 20 } },
                 plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { boxWidth: 12, font: { size: 11 } }
-                    },
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -169,7 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // B. Grafik Realisasi Belanja Perbidang 2025
     const ctxExpense2025 = document.getElementById('pageExpenseChart2025')?.getContext('2d');
     if (ctxExpense2025) {
         new Chart(ctxExpense2025, {
@@ -192,11 +217,9 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: { padding: { top: 30, bottom: 10, left: 30, right: 30 } },
                 plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { boxWidth: 12, font: { size: 11 } }
-                    },
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -210,11 +233,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // =========================================================================
-    // [3] FITUR BARU: LOGIKA INTEGRASI TOMBOL KEMBALI KE ATAS (BACK TO TOP)
+    // [3] TOMBOL KEMBALI KE ATAS
     // =========================================================================
     const btnBackToTop = document.getElementById("btnBackToTop");
     if (btnBackToTop) {
-        // Deteksi scroll halaman
         window.addEventListener("scroll", function () {
             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
                 btnBackToTop.style.setProperty("display", "flex", "important");
@@ -223,12 +245,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Aksi klik kembali ke atas dengan smooth scroll
         btnBackToTop.addEventListener("click", function () {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
         });
     }
 });
