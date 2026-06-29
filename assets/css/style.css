@@ -1,195 +1,77 @@
 /* ==========================================================
-   NAVBAR V2.0
+   DROPDOWN MENU V2.0
 ========================================================== */
-
-.navbar{
-    padding:8px 15px;
-    background:#212529 !important;
+.navbar .dropdown-menu {
+    background: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 0;
+    margin-top: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    min-width: 180px;
 }
 
-.navbar-nav{
-    gap:4px;
+.navbar .dropdown-item {
+    color: #e0e0e0;
+    padding: 10px 20px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+    text-transform: uppercase;
 }
 
-.navbar .nav-link{
-    color:#F5F5F5 !important;
-    padding:10px 14px;
-    border-radius:8px;
-    transition:.25s;
-    font-size:13px;
-    letter-spacing:.3px;
+.navbar .dropdown-item:hover {
+    background: rgba(255,255,255,0.08);
+    color: #FFD54F;
 }
 
-.navbar .nav-link:hover{
-    background:rgba(255,255,255,.08);
-    color:#FFD54F !important;
+.navbar .dropdown-item.active {
+    background: #8B1E1E;
+    color: #fff !important;
 }
 
-.navbar .nav-link.active{
-    background:#8B1E1E;
-    color:#FFF !important;
+/* Dropdown toggle aktif — highlight saat salah satu anak dropdown sedang dibuka/dikunjungi */
+.navbar .nav-link.dropdown-toggle.active {
+    background: #8B1E1E;
+    color: #fff !important;
 }
 
-
-/* ==========================================================
-   MENU PENGADUAN
-========================================================== */
-
-.navbar .nav-link.text-warning{
-    color:#FFD54F !important;
+/* Perbaiki tampilan dropdown-toggle aktif saat hover */
+.navbar .nav-link.dropdown-toggle.active:hover {
+    background: #8B1E1E;
+    color: #fff !important;
 }
 
-.navbar .nav-link.text-warning:hover{
-    background:#FFD54F;
-    color:#222 !important;
-}
-
-
-/* ==========================================================
-   SEARCH
-========================================================== */
-
-.navbar-search{
-    min-width:220px;
-}
-
-#searchBox{
-    border-radius:30px;
-    border:none;
-    padding-left:18px;
-    font-size:13px;
-    transition:.3s;
-}
-
-#searchBox:focus{
-    width:250px;
-    box-shadow:0 0 0 .18rem rgba(255,193,7,.25);
-}
-
-.navbar-search .btn{
-    border-radius:30px;
-    width:42px;
-}
-
-
-/* ==========================================================
-   STICKY NAVBAR
-========================================================== */
-
-.sticky-top{
-    z-index:1050;
-}
-
-
-/* ==========================================================
-   MOBILE (NAVBAR)
-========================================================== */
-
-@media(max-width:991px){
-
-    .navbar-nav{
-        margin-top:10px;
-    }
-
-    .navbar .nav-link{
-        padding:12px;
-        border-bottom:1px solid rgba(255,255,255,.06);
-    }
-
-    .navbar-search{
-        margin-top:15px;
-        width:100%;
-    }
-
-    #searchBox{
-        width:100%;
-    }
-
-    .navbar-search .btn{
-        margin-left:8px;
-    }
-
-}
-
-
-/* ==========================================================
-   HEADER
-========================================================== */
-
-.header-logo{
-    height:75px;
-}
-
-.header-main-title{
-    letter-spacing:1px;
-}
-
-.badge{
-    border-radius:25px;
-}
-
-
-/* ==========================================================
-   FITUR READ MORE (SEJARAH) - PERBAIKAN DI HP
-========================================================== */
-
-/* Keadaan default container sebelum diklik (saat teks pendek) */
-.read-more-container {
-    max-height: 200px; 
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-}
-
-/* Keadaan dinamis saat tombol "Baca Selengkapnya" diklik */
-.read-more-container.expanded {
-    height: auto !important;          /* Memaksa tinggi mengikuti jumlah baris teks asli */
-    max-height: none !important;      /* Menghapus batasan tinggi maksimal */
-    overflow: visible !important;     /* Memastikan tidak ada teks yang tersembunyi */
-    padding-bottom: 20px;             /* Memberikan ruang agar tidak menempel ke tombol Sembunyikan */
-}
-
-/* Penyesuaian khusus jarak bawah di layar HP */
-@media (max-width: 991px) {
-    .read-more-container.expanded {
-        padding-bottom: 30px !important; /* Ruang aman ekstra di layar ponsel */
-    }
-}
-/* ==========================================================
-   WARNA EMAS CUSTOM
-========================================================== */
-
-.text-gold {
-    color: #FFD54F !important; /* Menggunakan kode warna emas cerah agar senada dengan hover menu Anda */
-}
-/* ==========================================================
-   WARNA EMAS CUSTOM BANNER
-========================================================== */
-.text-gold {
+/* Gaya khusus item Pengaduan dalam dropdown */
+.navbar .dropdown-item.text-warning {
     color: #FFD54F !important;
 }
 
-/* ==========================================================
-   TOMBOL KEMBALI KE ATAS (BACK TO TOP)
-========================================================== */
-#btnBackToTop {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: none;
-    z-index: 99;
-    border: none;
-    outline: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+.navbar .dropdown-item.text-warning:hover {
+    background: #FFD54F;
+    color: #222 !important;
 }
 
-#btnBackToTop:hover {
-    background-color: #8B1E1E !important;
-    color: #ffffff !important;
-    transform: translateY(-5px);
+/* ==========================================================
+   DROPDOWN — MOBILE
+========================================================== */
+@media(max-width:991px){
+    .navbar .dropdown-menu {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding-left: 16px;
+        margin-top: 0;
+    }
+
+    .navbar .dropdown-item {
+        color: #ccc;
+        padding: 8px 14px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .navbar .dropdown-item:hover {
+        color: #FFD54F;
+    }
 }
