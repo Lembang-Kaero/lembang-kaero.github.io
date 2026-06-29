@@ -9,7 +9,26 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // =====================================================================
-    // CUSTOM PLUGIN: SMART DATA LABELS (anti-tumpuk)
+    // HELPER: rounded rectangle (kompatibel semua browser)
+    // =====================================================================
+    function roundRect(ctx, x, y, w, h, r) {
+        r = Math.min(r, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.arcTo(x + w, y, x + w, y + r, r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+        ctx.lineTo(x + r, y + h);
+        ctx.arcTo(x, y + h, x, y + h - r, r);
+        ctx.lineTo(x, y + r);
+        ctx.arcTo(x, y, x + r, y, r);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    // =====================================================================
+    // CUSTOM PLUGIN: SMART DATA LABELS (visible edition)
     // =====================================================================
     const dataLabelsPlugin = {
         id: 'smartDataLabels',
@@ -17,69 +36,94 @@ document.addEventListener("DOMContentLoaded", function () {
             const ctx = chart.ctx;
             const meta = chart.getDatasetMeta(0);
             if (!meta || meta.hidden) return;
-            
+
             const dataset = chart.data.datasets[0];
             const total = dataset.data.reduce((a, b) => a + b, 0);
-            
+
             meta.data.forEach((element, index) => {
                 const value = dataset.data[index];
                 const pct = (value * 100) / total;
                 const pctText = pct.toFixed(1) + '%';
                 const rpText = formatRupiah(value);
-                
+
                 const startAngle = element.startAngle;
                 const endAngle = element.endAngle;
                 const midAngle = (startAngle + endAngle) / 2 - Math.PI / 2;
                 const outerR = element.outerRadius;
-                const innerR = element.innerRadius;
-                
-                const isSmall = pct < 15;
-                
+
+                const isSmall = pct < 12;
+                const PAD = 14; // padding horizontal box
+
                 ctx.save();
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.shadowColor = 'rgba(0,0,0,0.7)';
-                ctx.shadowBlur = 2;
-                
+
+                // Ukur teks untuk box
+                ctx.font = 'bold 14px "Poppins", "Segoe UI", Arial, sans-serif';
+                const rpMetrics = ctx.measureText(rpText);
+                ctx.font = '13px "Poppins", "Segoe UI", Arial, sans-serif';
+                const pctMetrics = ctx.measureText(pctText);
+                const boxW = Math.max(rpMetrics.width, pctMetrics.width) + PAD * 2;
+                const boxH = 40;
+
                 if (isSmall) {
-                    // === SLICE KECIL: label di LUAR + garis penunjuk ===
-                    const labelR = outerR + 30;
-                    const midR = outerR + 8;
+                    // === SLICE KECIL (<12%): label di LUAR + garis penunjuk ===
+                    const labelR = outerR + 46;
                     const xOut = Math.cos(midAngle) * labelR;
                     const yOut = Math.sin(midAngle) * labelR;
-                    const xMid = Math.cos(midAngle) * midR;
-                    const yMid = Math.sin(midAngle) * midR;
-                    
+                    const xEdge = Math.cos(midAngle) * outerR;
+                    const yEdge = Math.sin(midAngle) * outerR;
+
                     // Garis penunjuk
                     ctx.beginPath();
-                    ctx.strokeStyle = 'rgba(255,255,255,0.7)';
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(xMid, yMid);
+                    ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+                    ctx.lineWidth = 1.5;
+                    ctx.setLineDash([3, 2]);
+                    ctx.moveTo(xEdge, yEdge);
                     ctx.lineTo(xOut, yOut);
                     ctx.stroke();
-                    
-                    // Teks
-                    ctx.shadowBlur = 4;
-                    ctx.fillStyle = '#fff';
-                    ctx.font = 'bold 10px Poppins, sans-serif';
+                    ctx.setLineDash([]);
+
+                    // Dot di ujung pie
+                    ctx.beginPath();
+                    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                    ctx.arc(xEdge, yEdge, 3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Background box
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.82)';
+                    roundRect(ctx, xOut - boxW / 2, yOut - boxH / 2, boxW, boxH, 7);
+
+                    // Teks rupiah
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 14px "Poppins", "Segoe UI", Arial, sans-serif';
                     ctx.fillText(rpText, xOut, yOut - 8);
-                    ctx.font = '9px Poppins, sans-serif';
+
+                    // Teks persentase
+                    ctx.font = '13px "Poppins", "Segoe UI", Arial, sans-serif';
                     ctx.fillStyle = '#FFD54F';
-                    ctx.fillText(pctText, xOut, yOut + 6);
+                    ctx.fillText(pctText, xOut, yOut + 9);
                 } else {
-                    // === SLICE BESAR: label di DALAM ===
-                    const offset = outerR * 0.62;
+                    // === SLICE BESAR (≥12%): label di DALAM ===
+                    const offset = outerR * 0.58;
                     const x = Math.cos(midAngle) * offset;
                     const y = Math.sin(midAngle) * offset;
-                    
-                    ctx.fillStyle = '#fff';
-                    ctx.font = 'bold 11px Poppins, sans-serif';
-                    ctx.fillText(rpText, x, y - 7);
-                    ctx.font = '10px Poppins, sans-serif';
+
+                    // Background box semi-transparan
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.72)';
+                    roundRect(ctx, x - boxW / 2, y - boxH / 2, boxW, boxH, 6);
+
+                    // Teks rupiah
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 14px "Poppins", "Segoe UI", Arial, sans-serif';
+                    ctx.fillText(rpText, x, y - 8);
+
+                    // Teks persentase
+                    ctx.font = '13px "Poppins", "Segoe UI", Arial, sans-serif';
                     ctx.fillStyle = '#FFD54F';
-                    ctx.fillText(pctText, x, y + 8);
+                    ctx.fillText(pctText, x, y + 9);
                 }
-                
+
                 ctx.restore();
             });
         }
@@ -104,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                layout: { padding: { top: 10, bottom: 10, left: 20, right: 20 } },
+                layout: { padding: { top: 25, bottom: 10, left: 40, right: 40 } },
                 plugins: {
                     legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
@@ -141,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                layout: { padding: { top: 30, bottom: 10, left: 30, right: 30 } },
+                layout: { padding: { top: 40, bottom: 10, left: 55, right: 55 } },
                 plugins: {
                     legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
@@ -156,10 +200,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ========================================================================
+    // =========================================================================
     // [2] GRAFIK LAPORAN REALISASI TAHUN 2025
-    // ========================================================================
-    
+    // =========================================================================
+
     const ctxIncome2025 = document.getElementById('pageIncomeChart2025')?.getContext('2d');
     if (ctxIncome2025) {
         new Chart(ctxIncome2025, {
@@ -167,12 +211,12 @@ document.addEventListener("DOMContentLoaded", function () {
             plugins: [dataLabelsPlugin],
             data: {
                 labels: [
-                    'Dana Lembang', 
-                    'Bagi Hasil Pajak & Retribusi', 
+                    'Dana Lembang',
+                    'Bagi Hasil Pajak & Retribusi',
                     'Alokasi Dana Lembang'
                 ],
                 datasets: [{
-                    data: [724620800, 4728000, 561106000], 
+                    data: [724620800, 4728000, 561106000],
                     backgroundColor: ['#0d6efd', '#fd7e14', '#20c997'],
                     hoverOffset: 6
                 }]
@@ -180,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                layout: { padding: { top: 10, bottom: 10, left: 20, right: 20 } },
+                layout: { padding: { top: 25, bottom: 10, left: 40, right: 40 } },
                 plugins: {
                     legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
@@ -217,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                layout: { padding: { top: 30, bottom: 10, left: 30, right: 30 } },
+                layout: { padding: { top: 40, bottom: 10, left: 55, right: 55 } },
                 plugins: {
                     legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
                     tooltip: {
