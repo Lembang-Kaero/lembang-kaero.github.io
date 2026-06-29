@@ -26,21 +26,18 @@
     color: #FFD54F;
 }
 
+/* Item dropdown yang sedang aktif di halamannya */
 .navbar .dropdown-item.active {
-    background: #8B1E1E;
+    background: #8B1E1E !important;
     color: #fff !important;
 }
 
-/* Dropdown toggle aktif — highlight saat salah satu anak dropdown sedang dibuka/dikunjungi */
-.navbar .nav-link.dropdown-toggle.active {
-    background: #8B1E1E;
+/* PERBAIKAN: Tombol Menu Utama berubah marun HANYA SAAT dropdown terbuka (.show) */
+.navbar .nav-link.dropdown-toggle.show,
+.navbar .nav-link.dropdown-toggle:focus {
+    background: #8B1E1E !important;
     color: #fff !important;
-}
-
-/* Perbaiki tampilan dropdown-toggle aktif saat hover */
-.navbar .nav-link.dropdown-toggle.active:hover {
-    background: #8B1E1E;
-    color: #fff !important;
+    border-radius: 4px; /* Membuat sudut tombol menu sedikit melengkung rapi */
 }
 
 /* Gaya khusus item Pengaduan dalam dropdown */
@@ -49,12 +46,12 @@
 }
 
 .navbar .dropdown-item.text-warning:hover {
-    background: #FFD54F;
+    background: #FFD54F !important;
     color: #222 !important;
 }
 
 /* ==========================================================
-   DROPDOWN — MOBILE
+   DROPDOWN — MOBILE (Responsif Layar Kecil)
 ========================================================== */
 @media(max-width:991px){
     .navbar .dropdown-menu {
@@ -73,5 +70,12 @@
 
     .navbar .dropdown-item:hover {
         color: #FFD54F;
+        background: transparent; /* Mencegah background abu-abu penuh di mobile */
+    }
+
+    /* Mencegah tombol menu utama memenuhi layar dengan warna marun saat di HP */
+    .navbar .nav-link.dropdown-toggle.show {
+        background: transparent !important;
+        color: #FFD54F !important;
     }
 }
