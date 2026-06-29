@@ -8,8 +8,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }).format(value);
     };
 
+    // SHARED DATALABELS CONFIG
+    const datalabelsConfig = {
+        color: '#fff',
+        font: { weight: 'bold', size: 11 },
+        formatter: function(value, ctx) {
+            let sum = 0;
+            ctx.chart.data.datasets[0].data.forEach(function(d) { sum += d; });
+            let pct = (value * 100 / sum).toFixed(1) + '%';
+            return formatRupiah(value) + '
+(' + pct + ')';
+        }
+    };
+
     // =========================================================================
-    // [1] INITIALIZATION GRAFIK TAHUN ANGGARAN 2026 (Grafik Existing Anda)
+    // [1] INITIALIZATION GRAFIK TAHUN ANGGARAN 2026
     // =========================================================================
     const ctxIncome2026 = document.getElementById('pageIncomeChart')?.getContext('2d');
     if (ctxIncome2026) {
@@ -34,7 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
-                    }
+                    },
+                    datalabels: datalabelsConfig
                 }
             }
         });
@@ -69,15 +83,25 @@ document.addEventListener("DOMContentLoaded", function () {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
+                    },
+                    datalabels: {
+                        color: '#fff',
+                        font: { weight: 'bold', size: 10 },
+                        formatter: function(value, ctx) {
+                            let sum = 0;
+                            ctx.chart.data.datasets[0].data.forEach(function(d) { sum += d; });
+                            let pct = (value * 100 / sum).toFixed(1) + '%';
+                            return formatRupiah(value) + '
+(' + pct + ')';
+                        }
                     }
                 }
             }
         });
     }
 
-
     // =========================================================================
-    // [2] INITIALIZATION GRAFIK LAPORAN REALISASI TAHUN 2025 (GRAFIK BARU)
+    // [2] INITIALIZATION GRAFIK LAPORAN REALISASI TAHUN 2025
     // =========================================================================
     
     // A. Grafik Realisasi Pendapatan 2025
@@ -92,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     'Alokasi Dana Lembang'
                 ],
                 datasets: [{
-                    // Mengambil data angka murni dari kolom Realisasi APBL 2025 di tabel Anda
                     data: [724620800, 4728000, 561106000], 
                     backgroundColor: ['#0d6efd', '#fd7e14', '#20c997'],
                     hoverOffset: 6
@@ -112,7 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
-                    }
+                    },
+                    datalabels: datalabelsConfig
                 }
             }
         });
@@ -132,7 +156,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     'Penanggulangan Bencana'
                 ],
                 datasets: [{
-                    // Mengambil data murni dari kolom Realisasi Belanja Perbidang 2025 di tabel Anda
                     data: [552156800, 531502996, 38400000, 1650000, 144000000],
                     backgroundColor: ['#dc3545', '#198754', '#ffc107', '#0dcaf0', '#6c757d'],
                     hoverOffset: 6
@@ -151,6 +174,17 @@ document.addEventListener("DOMContentLoaded", function () {
                             label: function(context) {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
+                        }
+                    },
+                    datalabels: {
+                        color: '#fff',
+                        font: { weight: 'bold', size: 10 },
+                        formatter: function(value, ctx) {
+                            let sum = 0;
+                            ctx.chart.data.datasets[0].data.forEach(function(d) { sum += d; });
+                            let pct = (value * 100 / sum).toFixed(1) + '%';
+                            return formatRupiah(value) + '
+(' + pct + ')';
                         }
                     }
                 }
