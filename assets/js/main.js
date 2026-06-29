@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // CUSTOM PLUGIN: SMART DATA LABELS (visible edition)
     // =====================================================================
 
+    // =====================================================================
+    // CUSTOM PLUGIN: SMART DATA LABELS (Anti-Clipping & Anti-Overlap)
+    // =====================================================================
     const dataLabelsPlugin = {
         id: 'smartDataLabels',
         afterDraw(chart) {
@@ -57,12 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 const midAngle = (startAngle + endAngle) / 2;
                 const outerR = element.outerRadius;
 
-                // Batasan persentase slice kecil
                 const isSmall = pct < 12;
                 const PAD = 10; 
 
                 ctx.save();
-                ctx.textAlign = 'center'; // Tetap Center agar kalkulasi box stabil di semua layar
+                ctx.textAlign = 'center'; 
                 ctx.textBaseline = 'middle';
 
                 ctx.font = 'bold 12px "Poppins", "Segoe UI", Arial, sans-serif';
@@ -73,18 +75,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 const boxH = 34;
 
                 if (isSmall) {
-                    // === SLICE KECIL: Memencar ke Luar Secara Simetris Sesuai Index ===
-                    // Memberikan radius tambahan yang bervariasi berdasarkan urutan data (index)
-                    // Trik ini memisahkan box yang se-arah agar bertingkat dan tidak menumpuk
-                    const extraRadius = 38 + (index * 12); 
-                    const labelR = outerR + extraRadius;
+                    // === SLICE KECIL: Label di LUAR ===
+                    const labelR = outerR + 35;
                     
                     const xEdge = centerX + Math.cos(midAngle) * outerR;
                     const yEdge = centerY + Math.sin(midAngle) * outerR;
-                    const xOut = centerX + Math.cos(midAngle) * labelR;
-                    const yOut = centerY + Math.sin(midAngle) * labelR;
+                    
+                    let xOut = centerX + Math.cos(midAngle) * labelR;
+                    let yOut = centerY + Math.sin(midAngle) * labelR;
 
-                    // 1. Gambar Garis Bantu Penunjuk (Dashed Line)
+                    // SOLUSI ANTI-TERPOTONG & ANTI-TUMPUK DI ATAS
+                    // Jika posisi box terlalu ke atas (menabrak langit-langit canvas)
+                    if (yOut < 45) {
+                        yOut = 45; // Kunci di posisi Y aman agar tidak terpotong atas canvas
+                        
+                        // Jika ini grafik Belanja (banyak data kecil berdampingan), sebar secara horisontal
+                        if (chart.data.labels.length > 2) {
+                            xOut = centerX + (index - 3) * (boxW + 8);
+                        }
+                    }
+
+                    // 1. Gambar Garis Bantu Penunjuk
                     ctx.beginPath();
                     ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
                     ctx.lineWidth = 1.2;
@@ -100,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ctx.arc(xEdge, yEdge, 2.5, 0, Math.PI * 2);
                     ctx.fill();
 
-                    // 3. Gambar Background Box (Hitam Pekat)
+                    // 3. Gambar Background Box
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
                     roundRect(ctx, xOut - boxW / 2, yOut - boxH / 2, boxW, boxH, 5);
 
@@ -114,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ctx.fillStyle = '#FFD54F';
                     ctx.fillText(pctText, xOut, yOut + 8);
                 } else {
-                    // === SLICE BESAR: Tetap di Dalam Sektor ===
+                    // === SLICE BESAR: Label di DALAM ===
                     const offset = outerR * 0.55; 
                     const xIn = centerX + Math.cos(midAngle) * offset;
                     const yIn = centerY + Math.sin(midAngle) * offset;
