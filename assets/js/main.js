@@ -8,16 +8,53 @@ document.addEventListener("DOMContentLoaded", function () {
         }).format(value);
     };
 
-    // SHARED DATALABELS CONFIG
-    const datalabelsConfig = {
-        color: '#fff',
-        font: { weight: 'bold', size: 11 },
-        formatter: function(value, ctx) {
-            let sum = 0;
-            ctx.chart.data.datasets[0].data.forEach(function(d) { sum += d; });
-            let pct = (value * 100 / sum).toFixed(1) + '%';
-            return formatRupiah(value) + '
-(' + pct + ')';
+    // =====================================================================
+    // CUSTOM PLUGIN: DATA LABELS PADA PIE CHART (built-in, tanpa CDN)
+    // =====================================================================
+    const dataLabelsPlugin = {
+        id: 'customDataLabels',
+        afterDraw(chart) {
+            const ctx = chart.ctx;
+            const meta = chart.getDatasetMeta(0);
+            if (!meta || meta.hidden) return;
+            
+            const dataset = chart.data.datasets[0];
+            const total = dataset.data.reduce((a, b) => a + b, 0);
+            
+            meta.data.forEach((element, index) => {
+                const value = dataset.data[index];
+                const pct = ((value * 100) / total).toFixed(1) + '%';
+                const label = formatRupiah(value);
+                
+                // Ambil posisi tengah potongan pie
+                const pos = element.tooltipPosition();
+                
+                // Hitung sudut tengah untuk menggeser label ke luar sedikit
+                const startAngle = element.startAngle;
+                const endAngle = element.endAngle;
+                const midAngle = (startAngle + endAngle) / 2;
+                const outerRadius = element.outerRadius;
+                const offset = outerRadius * 0.65; // 65% dari pusat ke tepi
+                
+                const x = pos.x + Math.cos(midAngle - Math.PI / 2) * (offset - outerRadius * 0.15);
+                const y = pos.y + Math.sin(midAngle - Math.PI / 2) * (offset - outerRadius * 0.15);
+                
+                // Gambar teks nilai
+                ctx.save();
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 12px Poppins, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.shadowColor = 'rgba(0,0,0,0.6)';
+                ctx.shadowBlur = 3;
+                ctx.fillText(label, x, y - 7);
+                
+                // Gambar teks persentase
+                ctx.font = '10px Poppins, sans-serif';
+                ctx.fillStyle = '#FFD54F';
+                ctx.fillText(pct, x, y + 10);
+                ctx.restore();
+            });
         }
     };
 
@@ -28,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (ctxIncome2026) {
         new Chart(ctxIncome2026, {
             type: 'pie',
+            plugins: [dataLabelsPlugin],
             data: {
                 labels: ['Pendapatan Asli Lembang', 'Pendapatan Transfer'],
                 datasets: [{
@@ -47,8 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
-                    },
-                    datalabels: datalabelsConfig
+                    }
                 }
             }
         });
@@ -58,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (ctxExpense2026) {
         new Chart(ctxExpense2026, {
             type: 'pie',
+            plugins: [dataLabelsPlugin],
             data: {
                 labels: [
                     'Penyelenggaraan Pemerintahan',
@@ -83,17 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
-                    },
-                    datalabels: {
-                        color: '#fff',
-                        font: { weight: 'bold', size: 10 },
-                        formatter: function(value, ctx) {
-                            let sum = 0;
-                            ctx.chart.data.datasets[0].data.forEach(function(d) { sum += d; });
-                            let pct = (value * 100 / sum).toFixed(1) + '%';
-                            return formatRupiah(value) + '
-(' + pct + ')';
-                        }
                     }
                 }
             }
@@ -109,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (ctxIncome2025) {
         new Chart(ctxIncome2025, {
             type: 'pie',
+            plugins: [dataLabelsPlugin],
             data: {
                 labels: [
                     'Dana Lembang', 
@@ -135,8 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
                         }
-                    },
-                    datalabels: datalabelsConfig
+                    }
                 }
             }
         });
@@ -147,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (ctxExpense2025) {
         new Chart(ctxExpense2025, {
             type: 'pie',
+            plugins: [dataLabelsPlugin],
             data: {
                 labels: [
                     'Penyelenggaraan Pemerintahan',
@@ -174,17 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             label: function(context) {
                                 return ' ' + context.label + ': ' + formatRupiah(context.raw);
                             }
-                        }
-                    },
-                    datalabels: {
-                        color: '#fff',
-                        font: { weight: 'bold', size: 10 },
-                        formatter: function(value, ctx) {
-                            let sum = 0;
-                            ctx.chart.data.datasets[0].data.forEach(function(d) { sum += d; });
-                            let pct = (value * 100 / sum).toFixed(1) + '%';
-                            return formatRupiah(value) + '
-(' + pct + ')';
                         }
                     }
                 }
