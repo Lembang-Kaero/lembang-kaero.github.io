@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const headerElement = document.querySelector('header');
     
     if (headerElement) {
-        // DISESUAIKAN: Menggunakan huruf kecil 'components/header.html' sesuai folder asli GitHub Anda
         const antiCacheToken = new Date().getTime();
         const headerUrl = 'assets/components/header.html?v=' + antiCacheToken;
 
@@ -12,27 +11,51 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.text();
             })
             .then(htmlContent => {
-                // Memasukkan isi HTML Kop ke dalam wadah <header>
                 headerElement.innerHTML = htmlContent;
                 
-                // MENGATUR MENU AKTIF WARNA KUNING SECARA OTOMATIS
+                // MENGATUR MENU AKTIF — TERMASUK DROPDOWN
                 try {
                     const currentPath = window.location.pathname.toLowerCase();
                     const currentFile = currentPath.split('/').pop();
                     
-                    const navLinks = headerElement.querySelectorAll('.navbar-nav .nav-link');
+                    // 1. Deteksi link navigasi utama (non-dropdown)
+                    const navLinks = headerElement.querySelectorAll('.navbar-nav .nav-link:not(.dropdown-toggle)');
                     
                     navLinks.forEach(link => {
-                        const linkHref = link.getAttribute('href').toLowerCase();
+                        const linkHref = link.getAttribute('href');
+                        if (!linkHref) return;
                         
-                        const isAbsoluteMatch = currentFile === linkHref;
-                        const isFolderEndMatch = (currentPath.endsWith('/') || currentFile === '') && linkHref === 'index.html';
-                        const isPartialMatch = currentFile.includes(linkHref) && linkHref !== '';
+                        const linkFile = linkHref.toLowerCase().split('/').pop();
+                        
+                        const isAbsoluteMatch = currentFile === linkFile;
+                        const isFolderEndMatch = (currentPath.endsWith('/') || currentFile === '') && linkFile === 'index.html';
 
-                        if (isAbsoluteMatch || isFolderEndMatch || isPartialMatch) {
-                            link.classList.add('active', 'text-warning');
-                        } else {
-                            link.classList.remove('active', 'text-warning');
+                        if (isAbsoluteMatch || isFolderEndMatch) {
+                            link.classList.add('active');
+                        }
+                    });
+
+                    // 2. Deteksi item dropdown
+                    const dropdownItems = headerElement.querySelectorAll('.dropdown-item');
+                    
+                    dropdownItems.forEach(item => {
+                        const itemHref = item.getAttribute('href');
+                        if (!itemHref) return;
+                        
+                        const itemFile = itemHref.toLowerCase().split('/').pop();
+                        
+                        if (currentFile === itemFile) {
+                            // Tandai item dropdown sebagai aktif
+                            item.classList.add('active');
+                            
+                            // Tandai parent dropdown-toggle sebagai aktif
+                            const parentDropdown = item.closest('.dropdown');
+                            if (parentDropdown) {
+                                const dropdownToggle = parentDropdown.querySelector('.dropdown-toggle');
+                                if (dropdownToggle) {
+                                    dropdownToggle.classList.add('active');
+                                }
+                            }
                         }
                     });
                 } catch (navError) {
@@ -41,5 +64,4 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error('Kendala sistem Header:', error));
     }
-  
 });
