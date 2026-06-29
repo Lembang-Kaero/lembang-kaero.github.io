@@ -30,12 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // =====================================================================
     // CUSTOM PLUGIN: SMART DATA LABELS (visible edition)
     // =====================================================================
-    // =====================================================================
-    // CUSTOM PLUGIN: SMART DATA LABELS (Fixed Position & Responsive)
-    // =====================================================================
-   // =====================================================================
-    // CUSTOM PLUGIN: SMART DATA LABELS (Anti-Overlap Edition)
-    // =====================================================================
+
     const dataLabelsPlugin = {
         id: 'smartDataLabels',
         afterDraw(chart) {
@@ -48,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             meta.data.forEach((element, index) => {
                 const value = dataset.data[index];
-                if (value === 0) return; // Lewati jika data bernilai 0
+                if (value === 0) return; // Lewati data bernilai Rp 0
 
                 const pct = (value * 100) / total;
                 const pctText = pct.toFixed(1) + '%';
@@ -62,10 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const midAngle = (startAngle + endAngle) / 2;
                 const outerR = element.outerRadius;
 
+                // Batasan persentase slice kecil
                 const isSmall = pct < 12;
                 const PAD = 10; 
 
                 ctx.save();
+                ctx.textAlign = 'center'; // Tetap Center agar kalkulasi box stabil di semua layar
                 ctx.textBaseline = 'middle';
 
                 ctx.font = 'bold 12px "Poppins", "Segoe UI", Arial, sans-serif';
@@ -76,30 +73,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 const boxH = 34;
 
                 if (isSmall) {
-                    // === SLICE KECIL: Label di LUAR dengan Distribusi Posisi ===
-                    const labelR = outerR + 45; // Jarak diperpanjang sedikit agar tidak menempel lingkaran
+                    // === SLICE KECIL: Memencar ke Luar Secara Simetris Sesuai Index ===
+                    // Memberikan radius tambahan yang bervariasi berdasarkan urutan data (index)
+                    // Trik ini memisahkan box yang se-arah agar bertingkat dan tidak menumpuk
+                    const extraRadius = 38 + (index * 12); 
+                    const labelR = outerR + extraRadius;
                     
                     const xEdge = centerX + Math.cos(midAngle) * outerR;
                     const yEdge = centerY + Math.sin(midAngle) * outerR;
-                    
-                    // Titik dasar label luar sebelum di-offset
-                    let xOut = centerX + Math.cos(midAngle) * labelR;
-                    let yOut = centerY + Math.sin(midAngle) * labelR;
+                    const xOut = centerX + Math.cos(midAngle) * labelR;
+                    const yOut = centerY + Math.sin(midAngle) * labelR;
 
-                    // TRIK ANTI-TUMPUK: Geser box ke kiri/kanan agar tidak menabrak label sebelahnya
-                    // Jika sudut berada di bagian atas grafik, kita dorong secara horisontal
-                    const cosA = Math.cos(midAngle);
-                    if (cosA < 0) {
-                        ctx.textAlign = 'right';
-                        xOut -= 8; // Geser sedikit ke kiri untuk area kiri atas
-                    } else {
-                        ctx.textAlign = 'left';
-                        xOut += 8; // Geser sedikit ke kanan untuk area kanan atas
-                    }
-
-                    // 1. Gambar Garis Bantu Penunjuk
+                    // 1. Gambar Garis Bantu Penunjuk (Dashed Line)
                     ctx.beginPath();
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.55)';
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
                     ctx.lineWidth = 1.2;
                     ctx.setLineDash([3, 2]);
                     ctx.moveTo(xEdge, yEdge);
@@ -107,37 +94,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     ctx.stroke();
                     ctx.setLineDash([]); 
 
-                    // 2. Gambar Dot di Tepi Lingkaran
+                    // 2. Gambar Titik Penunjuk di Tepi Grafik
                     ctx.beginPath();
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-                    ctx.arc(xEdge, yEdge, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                    ctx.arc(xEdge, yEdge, 2.5, 0, Math.PI * 2);
                     ctx.fill();
 
-                    // Penyesuaian posisi kotak pembungkus berdasarkan teks align
-                    let boxX = xOut - boxW / 2;
-                    if (ctx.textAlign === 'right') boxX = xOut - boxW;
-                    if (ctx.textAlign === 'left') boxX = xOut;
-
-                    // 3. Gambar Background Box
+                    // 3. Gambar Background Box (Hitam Pekat)
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
-                    roundRect(ctx, boxX, yOut - boxH / 2, boxW, boxH, 5);
-
-                    // Posisikan teks di tengah-tengah internal box yang digeser
-                    const textX = boxX + boxW / 2;
-                    ctx.textAlign = 'center';
+                    roundRect(ctx, xOut - boxW / 2, yOut - boxH / 2, boxW, boxH, 5);
 
                     // 4. Cetak Teks Rupiah
                     ctx.fillStyle = '#FFFFFF';
                     ctx.font = 'bold 12px "Poppins", "Segoe UI", Arial, sans-serif';
-                    ctx.fillText(rpText, textX, yOut - 6);
+                    ctx.fillText(rpText, xOut, yOut - 6);
 
                     // 5. Cetak Teks Persentase
                     ctx.font = '11px "Poppins", "Segoe UI", Arial, sans-serif';
                     ctx.fillStyle = '#FFD54F';
-                    ctx.fillText(pctText, textX, yOut + 8);
+                    ctx.fillText(pctText, xOut, yOut + 8);
                 } else {
-                    // === SLICE BESAR: Label di DALAM (Tetap Sama) ===
-                    ctx.textAlign = 'center';
+                    // === SLICE BESAR: Tetap di Dalam Sektor ===
                     const offset = outerR * 0.55; 
                     const xIn = centerX + Math.cos(midAngle) * offset;
                     const yIn = centerY + Math.sin(midAngle) * offset;
