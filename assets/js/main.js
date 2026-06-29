@@ -30,6 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // =====================================================================
     // CUSTOM PLUGIN: SMART DATA LABELS (visible edition)
     // =====================================================================
+    // =====================================================================
+    // CUSTOM PLUGIN: SMART DATA LABELS (Fixed Position & Responsive)
+    // =====================================================================
     const dataLabelsPlugin = {
         id: 'smartDataLabels',
         afterDraw(chart) {
@@ -42,86 +45,95 @@ document.addEventListener("DOMContentLoaded", function () {
 
             meta.data.forEach((element, index) => {
                 const value = dataset.data[index];
+                if (value === 0) return; // Lewati jika data bernilai 0
+
                 const pct = (value * 100) / total;
                 const pctText = pct.toFixed(1) + '%';
                 const rpText = formatRupiah(value);
 
+                // Mendapatkan titik pusat lingkaran grafik secara dinamis
+                const centerX = element.x;
+                const centerY = element.y;
+
                 const startAngle = element.startAngle;
                 const endAngle = element.endAngle;
-                const midAngle = (startAngle + endAngle) / 2 - Math.PI / 2;
+                const midAngle = (startAngle + endAngle) / 2;
                 const outerR = element.outerRadius;
 
+                // Slice dianggap kecil jika di bawah 12%
                 const isSmall = pct < 12;
-                const PAD = 14; // padding horizontal box
+                const PAD = 10; // Padding horizontal box
 
                 ctx.save();
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
 
-                // Ukur teks untuk box
-                ctx.font = 'bold 14px "Poppins", "Segoe UI", Arial, sans-serif';
+                // Ukur dimensi teks untuk membungkus box background
+                ctx.font = 'bold 12px "Poppins", "Segoe UI", Arial, sans-serif';
                 const rpMetrics = ctx.measureText(rpText);
-                ctx.font = '13px "Poppins", "Segoe UI", Arial, sans-serif';
+                ctx.font = '11px "Poppins", "Segoe UI", Arial, sans-serif';
                 const pctMetrics = ctx.measureText(pctText);
                 const boxW = Math.max(rpMetrics.width, pctMetrics.width) + PAD * 2;
-                const boxH = 40;
+                const boxH = 34; // Tinggi box dioptimalkan agar pas di dalam slice
 
                 if (isSmall) {
-                    // === SLICE KECIL (<12%): label di LUAR + garis penunjuk ===
-                    const labelR = outerR + 46;
-                    const xOut = Math.cos(midAngle) * labelR;
-                    const yOut = Math.sin(midAngle) * labelR;
-                    const xEdge = Math.cos(midAngle) * outerR;
-                    const yEdge = Math.sin(midAngle) * outerR;
+                    // === SLICE KECIL: Label di LUAR dengan Garis Bantu ===
+                    const labelR = outerR + 40; // Jarak box luar dari tepi lingkaran
+                    
+                    // Titik koordinat absolut di canvas
+                    const xEdge = centerX + Math.cos(midAngle) * outerR;
+                    const yEdge = centerY + Math.sin(midAngle) * outerR;
+                    const xOut = centerX + Math.cos(midAngle) * labelR;
+                    const yOut = centerY + Math.sin(midAngle) * labelR;
 
-                    // Garis penunjuk
+                    // 1. Gambar Garis Bantu Penunjuk (Dashed Line)
                     ctx.beginPath();
-                    ctx.strokeStyle = 'rgba(0,0,0,0.55)';
-                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)';
+                    ctx.lineWidth = 1.2;
                     ctx.setLineDash([3, 2]);
                     ctx.moveTo(xEdge, yEdge);
                     ctx.lineTo(xOut, yOut);
                     ctx.stroke();
-                    ctx.setLineDash([]);
+                    ctx.setLineDash([]); // Reset line dash
 
-                    // Dot di ujung pie
+                    // 2. Gambar Dot Kecil di Tepi Lingkaran
                     ctx.beginPath();
-                    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
                     ctx.arc(xEdge, yEdge, 3, 0, Math.PI * 2);
                     ctx.fill();
 
-                    // Background box
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.82)';
-                    roundRect(ctx, xOut - boxW / 2, yOut - boxH / 2, boxW, boxH, 7);
+                    // 3. Gambar Background Box (Hitam pekat agar terbaca di luar)
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+                    roundRect(ctx, xOut - boxW / 2, yOut - boxH / 2, boxW, boxH, 5);
 
-                    // Teks rupiah
+                    // 4. Cetak Teks Rupiah (Atas)
                     ctx.fillStyle = '#FFFFFF';
-                    ctx.font = 'bold 14px "Poppins", "Segoe UI", Arial, sans-serif';
-                    ctx.fillText(rpText, xOut, yOut - 8);
+                    ctx.font = 'bold 12px "Poppins", "Segoe UI", Arial, sans-serif';
+                    ctx.fillText(rpText, xOut, yOut - 7);
 
-                    // Teks persentase
-                    ctx.font = '13px "Poppins", "Segoe UI", Arial, sans-serif';
+                    // 5. Cetak Teks Persentase (Bawah)
+                    ctx.font = '11px "Poppins", "Segoe UI", Arial, sans-serif';
                     ctx.fillStyle = '#FFD54F';
-                    ctx.fillText(pctText, xOut, yOut + 9);
+                    ctx.fillText(pctText, xOut, yOut + 8);
                 } else {
-                    // === SLICE BESAR (≥12%): label di DALAM ===
-                    const offset = outerR * 0.58;
-                    const x = Math.cos(midAngle) * offset;
-                    const y = Math.sin(midAngle) * offset;
+                    // === SLICE BESAR: Label di DALAM ===
+                    const offset = outerR * 0.55; // Posisi box di tengah-tengah slice
+                    const xIn = centerX + Math.cos(midAngle) * offset;
+                    const yIn = centerY + Math.sin(midAngle) * offset;
 
-                    // Background box semi-transparan
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.72)';
-                    roundRect(ctx, x - boxW / 2, y - boxH / 2, boxW, boxH, 6);
+                    // 1. Background Box Transparan di Dalam Slice
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+                    roundRect(ctx, xIn - boxW / 2, yIn - boxH / 2, boxW, boxH, 5);
 
-                    // Teks rupiah
+                    // 2. Cetak Teks Rupiah (Atas)
                     ctx.fillStyle = '#FFFFFF';
-                    ctx.font = 'bold 14px "Poppins", "Segoe UI", Arial, sans-serif';
-                    ctx.fillText(rpText, x, y - 8);
+                    ctx.font = 'bold 12px "Poppins", "Segoe UI", Arial, sans-serif';
+                    ctx.fillText(rpText, xIn, yIn - 7);
 
-                    // Teks persentase
-                    ctx.font = '13px "Poppins", "Segoe UI", Arial, sans-serif';
+                    // 3. Cetak Teks Persentase (Bawah)
+                    ctx.font = '11px "Poppins", "Segoe UI", Arial, sans-serif';
                     ctx.fillStyle = '#FFD54F';
-                    ctx.fillText(pctText, x, y + 9);
+                    ctx.fillText(pctText, xIn, yIn + 8);
                 }
 
                 ctx.restore();
